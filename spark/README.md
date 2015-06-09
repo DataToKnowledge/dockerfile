@@ -22,4 +22,4 @@ The `setup.sh` script is necessary to correctly configure master hostname and to
 Indeed we need to use [xip.io](http://xip.io/) in order to resolve masters' hostname avoiding to install a DNS server so the script generates an adequate master's hostname. 
 
 ## TODO 
-The services in this repo comes with the default configuration. We need to improve
+The services in this repo comes with the default configuration. We need to customize these to match our needs (i.e. setup ZooKeeper and use right ip addresses)
