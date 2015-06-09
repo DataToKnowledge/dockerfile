@@ -1,0 +1,12 @@
+master:
+    extends:
+        file: base.yml
+        service: spark
+    command: /spark/bin/spark-class org.apache.spark.deploy.master.Master
+    hostname: spark-master
+    ports:
+        - 4040:4040
+        - 7077:7077
+        - 8080:8080
+    volumes:
+        - ./conf/master:/conf

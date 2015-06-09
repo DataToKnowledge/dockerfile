@@ -1,0 +1,6 @@
+spark:
+    build: .
+    environment:
+        SPARK_CONF_DIR: /conf
+    volumes:
+        - ./data:/tmp/data
