@@ -3,7 +3,6 @@ master:
         file: base.yml
         service: spark
     command: /spark/bin/spark-class org.apache.spark.deploy.master.Master
-    hostname: spark-master
     ports:
         - 4040:4040
         - 7077:7077
