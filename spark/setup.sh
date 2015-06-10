@@ -4,7 +4,7 @@ function master {
     cp master.yml docker-compose.yml
 
     prefix='addr:'
-    addr="$(ifconfig en0 | grep inet | grep -v inet6 | awk '{print $2}')"
+    addr="$(ifconfig eth0 | grep inet | grep -v inet6 | awk '{print $2}')"
     addr=${addr#$prefix}
 
     echo "    hostname: spark-master.$addr.xip.io" >> docker-compose.yml
