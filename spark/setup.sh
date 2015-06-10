@@ -1,17 +1,19 @@
 #!/usr/bin/env bash
 
+function sethostname {
+    hn="$(hostname)"
+
+    echo "    hostname: $hn.cloudapp.net" >> docker-compose.yml
+}
+
 function master {
     cp master.yml docker-compose.yml
-
-    prefix='addr:'
-    addr="$(ifconfig eth0 | grep inet | grep -v inet6 | awk '{print $2}')"
-    addr=${addr#$prefix}
-
-    echo "    hostname: spark-master.$addr.xip.io" >> docker-compose.yml
+    sethostname
 }
 
 function worker {
     cp worker.yml docker-compose.yml
+    sethostname
 }
 
 if [ $# -ne 1 ]; then
