@@ -3,23 +3,43 @@
 This image can be used via:
 
 -	docker-compose
+-	docker
 
-## How to run with docker-compose
+## Docker Compose
 
-There is no `docker-compose.yml` file but there are a `master.yml` and a `worker.yml`, that defines respectively a *master* service and a *worker* service, and a `setup.sh` script.
+The most straightforward way is to use docker-compose. This repo comes with a `setup.sh` script that generates the `docker-compose.yml` starting from one of the two `.yml` files in the root directory (`master.yml` and `worker.yml`).
 
-The `setup.sh` script accepts a single parameter that can be one of *master* or *worker*.
-
-To start a node (i.e. master node) do the following:
+To generate a master|worker `docker-compose.yml` file simply type
 
 ```
-$ cd /repo/root/directory
+$ cd /root/repo/directory
+$ ./setup.sh master|worker
+```
+
+then use `docker-compose` to build and run the image with
+
+```
+$ docker-compose build && docker-compose up -d
+```
+
+Example (start a master node):
+
+```
+$ cd /root/repo/directory
 $ ./setup.sh master
 $ docker-compose build && docker-compose up -d
 ```
 
-The `setup.sh` script is necessary to correctly configure master hostname and to generate `docker-compose.yml`.
-Indeed we need to use [xip.io](http://xip.io/) in order to resolve masters' hostname avoiding to install a DNS server so the script generates an adequate master's hostname. 
+## Docker
 
-## TODO 
-The services in this repo comes with the default configuration. We need to customize these to match our needs (i.e. setup ZooKeeper and use right ip addresses)
+### Build
+
+```
+$ cd /root/repo/directory
+$ docker build -t="datatoknowledge/spark:1.3.1" ./
+```
+### Run the image
+//TODO
+
+## Configuration 
+This repo uses the default configuration for master nodes and set 4Gb of memory for worker nodes. In the `config` directory there are master and worker configuration. The default master url is `backend0.cloudapp.net`, it can be changed modifying `worker.yml` command.
