@@ -5,9 +5,8 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 #SPARK
-ENV SPARK_VERSION 1.3.1
-ENV HADOOP_VERSION 2.6
-ENV SPARK_PACKAGE spark-$SPARK_VERSION-bin-hadoop$HADOOP_VERSION
+ENV SPARK_VERSION 1.4.0
+ENV SPARK_PACKAGE spark-$SPARK_VERSION-bin-without-hadoop
 ENV SPARK_HOME /spark
 ENV PATH $PATH:$SPARK_HOME/bin
 
