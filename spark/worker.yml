@@ -2,6 +2,6 @@ worker:
     extends:
         file: base.yml
         service: spark
-    command: /spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://backend0.cloudapp.net:7077
     ports:
         - 8081:8081
+    command: /spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://backend0.cloudapp.net:7077

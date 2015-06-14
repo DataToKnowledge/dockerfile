@@ -2,7 +2,6 @@ master:
     extends:
         file: base.yml
         service: spark
-    command: /spark/bin/spark-class org.apache.spark.deploy.master.Master
     ports:
         - 4040:4040
         - 7077:7077
