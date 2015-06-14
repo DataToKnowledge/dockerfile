@@ -3,4 +3,5 @@ spark:
     environment:
         SPARK_CONF_DIR: /conf
     volumes:
+        - ./conf:/conf
         - ./data:/tmp/data
