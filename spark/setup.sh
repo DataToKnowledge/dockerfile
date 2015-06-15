@@ -10,7 +10,7 @@ function sethostname {
         echo "    command: \"/spark/bin/spark-class org.apache.spark.deploy.master.Master -h $hn\"" >> ./docker-compose.yml
         echo "spark.master spark://$hn:7077" >> ./conf/spark-defaults.conf
     elif [ "$1" = 'worker' ]; then
-        echo "    command: /spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://backend0.cloudapp.net:7077 -h $hn" >> ./docker-compose.yml
+        echo "    command: /spark/bin/spark-class org.apache.spark.deploy.worker.Worker -h $hn spark://backend0.cloudapp.net:7077" >> ./docker-compose.yml
     fi
 }
 
@@ -23,7 +23,7 @@ function master {
 function worker {
     cp ./worker.yml ./docker-compose.yml
     cp -r ./conf_worker ./conf
-    sethostname
+    sethostname "worker"
 }
 
 if [ $# -ne 1 ]; then
