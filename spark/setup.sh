@@ -1,42 +1,46 @@
 #!/usr/bin/env bash
 
+function clean {
+    rm -f  ./docker-compose.yml
+    rm -rf ./conf
+}
+
 function sethostname {
     hn="$(hostname).cloudapp.net"
+    master="backend0.cloudapp.net"
+    if [ "$1" = 'master' ]; then
+        master=$hn
+    fi
 
-    echo "    hostname: $hn" >> ./docker-compose.yml
-    echo "export SPARK_PUBLIC_DNS=\"$hn\"" >> ./conf/spark-env.sh
+    printf "    hostname: $hn\n" >> ./docker-compose.yml
+
+    printf "export SPARK_LOCAL_HOSTNAME=$hn\nexport SPARK_LOCAL_IP=$hn\nexport SPARK_PUBLIC_DNS=$hn\nexport SPARK_INTERNAL_HOSTNAME=$hn\nexport SPARK_EXTERNAL_HOSTNAME=$hn" >> ./conf/spark-env.sh
+
+    printf "spark.master spark://$master:7077\nspark.driver.host $hn" >> ./conf/spark-defaults.conf
 
     if [ "$1" = 'master' ]; then
-        echo "    command: \"/spark/bin/spark-class org.apache.spark.deploy.master.Master -h $hn\"" >> ./docker-compose.yml
-        echo "spark.master spark://$hn:7077" >> ./conf/spark-defaults.conf
+        printf "    command: /spark/bin/spark-class org.apache.spark.deploy.master.Master -h $hn" >> ./docker-compose.yml
     elif [ "$1" = 'worker' ]; then
-        echo "    command: /spark/bin/spark-class org.apache.spark.deploy.worker.Worker -h $hn spark://backend0.cloudapp.net:7077" >> ./docker-compose.yml
+        printf "    command: /spark/bin/spark-class org.apache.spark.deploy.worker.Worker -h $hn spark://backend0.cloudapp.net:7077" >> ./docker-compose.yml
     fi
 }
 
-function master {
-    cp ./master.yml ./docker-compose.yml
-    cp -r ./conf_master ./conf
-    sethostname "master"
-}
-
-function worker {
-    cp ./worker.yml ./docker-compose.yml
-    cp -r ./conf_worker ./conf
-    sethostname "worker"
+function setup {
+    clean
+    cp ./$1.yml ./docker-compose.yml
+    cp -r ./conf_$1 ./conf
+    sethostname $1
 }
 
 if [ $# -ne 1 ]; then
-    echo "You need to type 'master' or 'worker' in order to configure this node"
+    printf "\e[31mERROR:\e[0m You need to type -m or -w in order to configure this node"
     exit 1
 else
-    rm -f ./docker-compose.yml
-    rm -rf ./conf
-    if [ "$1" = 'master' ]; then
-        master
-    elif [ "$1" = 'worker' ]; then
-        worker
+    if [ "$1" = '-m' ]; then
+        setup "master"
+    elif [ "$1" = '-w' ]; then
+        setup "worker"
     else
-        echo "Invalid argument, type 'master' or 'worker'"
+        printf "\e[31mERROR:\e[0m Invalid argument, type -m or -w"
     fi
 fi
