@@ -1,0 +1,18 @@
+zookeeper:
+  image: jplock/zookeeper:3.4.6
+  ports:
+    - "2181:2181"
+    - "2888:2888"
+    - "3888:3888"
+
+kafka:
+  build: ./
+  ports:
+    - "9092:9092"
+    - "7203:7203"
+  links:
+    - zookeeper:zookeeper
+  env_file:
+    - ./development.env
+  volumes:
+    - ./config:/opt/kafka/config
