@@ -1,10 +1,10 @@
 FROM java:8-jre
 
-RUN apt-get update && \
-    apt-get -y install curl && \
-    rm -rf /var/lib/apt/lists/*
+# RUN apt-get update && \
+#     apt-get -y install curl && \
+#     rm -rf /var/lib/apt/lists/*
 
-#SPARK
+#zookeeper
 ENV ZOOKEEPER_VERSION 3.4.6
 ENV ZOOKEEPER_PACKAGE zookeeper-$ZOOKEEPER_VERSION
 ENV ZOOKEEPER_HOME /zookeeper

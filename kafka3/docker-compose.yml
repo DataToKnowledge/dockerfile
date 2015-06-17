@@ -1,0 +1,9 @@
+kafka:
+  build: .
+  ports:
+    - "9092:9092"
+    - "7203:7203"
+  env_file:
+    - ./development.env
+  volumes:
+    - ./data:/data
