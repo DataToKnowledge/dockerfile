@@ -1,6 +1,5 @@
 zookeeper:
   image: jplock/zookeeper:3.4.6
-  restart: always
   ports:
     - "2181:2181"
     - "2888:2888"
@@ -12,3 +11,5 @@ kafka:
     - "7203:7203"
   env_file:
     - ./development.env
+  volumes:
+    - "./data:/data"

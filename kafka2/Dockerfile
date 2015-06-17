@@ -30,11 +30,11 @@ ADD config /kafka/config
 ADD start.sh /start.sh
 
 # Set up a user to run Kafka
-RUN groupadd kafka && \
-  useradd -d /kafka -g kafka -s /bin/false kafka && \
-  chown -R kafka:kafka /kafka /data /logs
+# RUN groupadd kafka && \
+#   useradd -d /kafka -g kafka -s /bin/false kafka && \
+#   chown -R kafka:kafka /kafka /data /logs
 
-USER kafka
+# USER kafka
 WORKDIR /kafka
 
 # primary, jmx

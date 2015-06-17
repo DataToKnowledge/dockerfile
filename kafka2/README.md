@@ -27,7 +27,7 @@ $ docker-compose build
 $ docker-compose up -d
 
 # in production mode
-$ docker-compose up -d --file docker-production.yml
+$ docker-compose --file docker-production.yml up -d
 
 ```
 
