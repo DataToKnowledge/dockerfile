@@ -34,19 +34,36 @@ $ docker-compose --file docker-production.yml up -d
 Then using the container as a client to run the basic producer and consumer example from [the Kafka Quick Start](http://kafka.apache.org/documentation.html#quickstart):
 
 ```
-$ docker run --rm kafka2_kafka1 \
-kafka-topics.sh --create --topic test \
---replication-factor 1 --partitions 2 --zookeeper $ZOOKEEPER_NODES
+$ docker run -d \
+--name kafka \
+--volume /data/kafka/data:/data --volume /data/kafka/logs:/logs \
+--publish 9092:9092 --publish 7203:7203 \
+--env EXPOSED_HOST=backend-1.cloudapp.net --env ZOOKEEPER_IP=backend-1.cloudapp.net --env ZOOKEEPER_PORT=2181 \
+plasmap/kafka
+
 
 $ docker run --rm kafka2_kafka1 \
-kafka-topics.sh --describe --zookeeper $ZOOKEEPER_NODES
+kafka-topics.sh --create --topic twitter \
+--replication-factor 1 --partitions 2 --zookeeper $ZOOKEEPER_IP:52181
+
+kafka-topics.sh --create --topic twitter \
+--replication-factor 1 --partitions 2 --zookeeper backend-1.cloudapp.net:2181
+
+$ docker run --rm kafka2_kafka1 \
+kafka-topics.sh --describe --zookeeper $ZOOKEEPER_IP:52181
+
+kafka-topics.sh --describe --zookeeper backend-1.cloudapp.net:2181
 
 $ docker run --rm -i kafka2_kafka \
-kafka-console-producer.sh --topic test --broker-list $KAFKA_HOSTNAME:9092
+kafka-console-producer.sh --topic test --broker-list $EXPOSED_HOST:9092
+
+kafka-console-producer.sh --topic test --broker-list backend-1.cloudapp.net:9092
 
 # from anothe terminal
 $ docker run --rm kafk2a_kafka \
-kafka-console-consumer.sh --topic test --from-beginning --zookeeper $ZOOKEEPER_NODES
+kafka-console-consumer.sh --topic test --from-beginning --zookeeper $ZOOKEEPER_IP:2181
+
+kafka-console-consumer.sh --topic test --zookeeper backend-1.cloudapp.net:2181
 
 ```
 
