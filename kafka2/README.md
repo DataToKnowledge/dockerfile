@@ -36,14 +36,17 @@ Then using the container as a client to run the basic producer and consumer exam
 ```
 $ docker run --rm kafka2_kafka1 \
 kafka-topics.sh --create --topic test \
---replication-factor 1 --partitions 1 --zookeeper $ZOOKEEPER_IP:2181
+--replication-factor 1 --partitions 2 --zookeeper $ZOOKEEPER_NODES
+
+$ docker run --rm kafka2_kafka1 \
+kafka-topics.sh --describe --zookeeper $ZOOKEEPER_NODES
 
 $ docker run --rm -i kafka2_kafka \
-kafka-console-producer.sh --topic test --broker-list $EXPOSED_HOST:9092
+kafka-console-producer.sh --topic test --broker-list $KAFKA_HOSTNAME:9092
 
 # from anothe terminal
 $ docker run --rm kafk2a_kafka \
-kafka-console-consumer.sh --topic test --from-beginning --zookeeper $ZOOKEEPER_IP:2181
+kafka-console-consumer.sh --topic test --from-beginning --zookeeper $ZOOKEEPER_NODES
 
 ```
 

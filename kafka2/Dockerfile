@@ -1,8 +1,7 @@
-FROM java:8-jre
+FROM java:7
 
 MAINTAINER Datatoknowledge <info@datatoknowledge.it>
 
-ENV PATH /kafka/bin:$PATH
 ENV KAFKA_RELEASE_ARCHIVE kafka_2.10-0.8.2.1.tgz
 
 RUN mkdir /kafka /data /logs
@@ -24,17 +23,10 @@ RUN echo VERIFY CHECKSUM: && \
 RUN tar -zx -C /kafka --strip-components=1 -f ${KAFKA_RELEASE_ARCHIVE} && \
   rm -rf kafka_*
 
-# RUN wget http://repo1.maven.org/maven2/org/slf4j/slf4j-log4j12/1.7.6/slf4j-log4j12-1.7.6.jar \
-#   -P /kafka/libs/
 ADD config /kafka/config
 ADD start.sh /start.sh
 
-# Set up a user to run Kafka
-# RUN groupadd kafka && \
-#   useradd -d /kafka -g kafka -s /bin/false kafka && \
-#   chown -R kafka:kafka /kafka /data /logs
-
-# USER kafka
+ENV PATH /kafka/bin:$PATH
 WORKDIR /kafka
 
 # primary, jmx
