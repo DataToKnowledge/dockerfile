@@ -12,10 +12,18 @@ EOF
     exit 1
 fi
 
-name=$1
+master=false; [ "$1" == "-m" ] && master=true
+data=true; [ "$1" == "-m" ] && data=false
+
+for last; do true; done
+name=$last
 
 if [[ $name =~ ^-?[0-9]+$ ]]; then
-  name="es$name"
+  if [ $master == true ]; then
+    name="esm$name"
+  else
+    name="esd$name"
+  fi
 fi
 
 baseDir="/data"
@@ -38,16 +46,23 @@ fi
 
 imgName="elasticsearch:1.6.0.dtk"
 
+cp -f ./config/elasticsearch.yml.template ./config/elasticsearch.yml
+
+echo "node.master: $master" >> ./config/elasticsearch.yml
+echo "node.data: $data" >> ./config/elasticsearch.yml
+
+exit 0
+
 docker build -t $imgName .
 docker stop $name &> /dev/null
 docker rm $name &> /dev/null
 docker run --name $name --restart on-failure -d \
   -p 9200:9200 \
   -p 9300:9300 \
-  -e ES_HEAP_SIZE=2g \
   -e ES_MIN_MEM=2g \
   -e ES_MAX_MEM=2g \
-  -v $(pwd)/config:/usr/share/elasticsearch/config \
+  -e ES_HEAP_SIZE=2g \
   -v $dataDir:/usr/share/elasticsearch/data \
   -v $logsDir:/usr/share/elasticsearch/logs \
+  -v $(pwd)/config:/usr/share/elasticsearch/config \
   $imgName
