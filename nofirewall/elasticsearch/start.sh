@@ -13,14 +13,15 @@ EOF
 fi
 
 name=$1
-baseDir="/data"
-esDir="$baseDir/elasticsearch/{es#}"
-dataDir="$esDir/data"
-logsDir="$esDir/logs"
 
 if [[ $name =~ ^-?[0-9]+$ ]]; then
   name="es$name"
 fi
+
+baseDir="/data"
+esDir="$baseDir/elasticsearch/$name"
+dataDir="$esDir/data"
+logsDir="$esDir/logs"
 
 if [ -d "$baseDir" ]; then
   if [ ! -d "$dataDir" ]; then
@@ -33,11 +34,10 @@ else
   echo "$baseDir not exists"
 fi
 
-cp -f ./docker-compose.yml.template ./docker-compose.yml
-
 echo "    - $dataDir:/usr/share/elasticsearch/data" >> ./docker-compose.yml
 echo "    - $logsDir:/usr/share/elasticsearch/logs" >> ./docker-compose.yml
 
+cp -f ./docker-compose.yml.template ./docker-compose.yml
 sed -i.bak s/{es#}/$name/g ./docker-compose.yml
 
-#docker-compose up -d
+docker-compose up -d
