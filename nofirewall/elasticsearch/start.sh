@@ -39,8 +39,11 @@ fi
 imgName="elasticsearch:1.6.0.dtk"
 
 docker build -t $imgName .
+docker stop $name &> /dev/null
 docker rm $name &> /dev/null
-docker run --name $name --restart on-failure -h $name -P -d \
+docker run --name $name --restart on-failure -h $name -d \
+  -p 9200:9200 \
+  -p 9300:9300 \
   -e ES_HEAP_SIZE=2g \
   -e ES_MIN_MEM=2g \
   -e ES_MAX_MEM=2g \
