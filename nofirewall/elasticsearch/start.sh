@@ -19,7 +19,7 @@ if [[ $name =~ ^-?[0-9]+$ ]]; then
 fi
 
 baseDir="/data"
-esDir="$baseDir/elasticsearch/wheretolive"
+esDir="$baseDir/elasticsearch"
 dataDir="$esDir/data"
 logsDir="$esDir/logs"
 
