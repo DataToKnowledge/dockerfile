@@ -15,7 +15,7 @@ fi
 name=$1
 
 if [[ $name =~ ^-?[0-9]+$ ]]; then
-  name="c$name"
+  name="es$name"
 fi
 
 baseDir="/data"
@@ -37,7 +37,17 @@ fi
 echo "    - $dataDir:/usr/share/elasticsearch/data" >> ./docker-compose.yml
 echo "    - $logsDir:/usr/share/elasticsearch/logs" >> ./docker-compose.yml
 
-cp -f ./docker-compose.yml.template ./docker-compose.yml
-sed -i.bak s/{es#}/$name/g ./docker-compose.yml
+#cp -f ./docker-compose.yml.template ./docker-compose.yml
+#sed -i.bak s/{es#}/$name/g ./docker-compose.yml
 
-docker-compose up -d
+imgName="elasticsearch:1.6.0.dtk"
+
+docker build -t $imgName .
+docker run --name $name --restart on-failure -h $name -P \
+  -e ES_HEAP_SIZE=2g \
+  -e ES_MIN_MEM=2g \
+  -e ES_MAX_MEM=2g \
+  -v ./config:/usr/share/elasticsearch/config \
+  -v $dataDir:/usr/share/elasticsearch/data \
+  -v $logsDir:/usr/share/elasticsearch/logs \
+  $imgName
