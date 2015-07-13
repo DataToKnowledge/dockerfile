@@ -3,6 +3,8 @@ nginx:
   ports:
     - "80:80"
     - "443:443"
+  environment:
+    - VIRTUAL_HOST=datatoknowledge.it,www.datatoknowledge.it
   volumes:
     - ./data/nginx/conf.d:/etc/nginx/conf.d
     - ./data/nginx/html:/var/www/html
