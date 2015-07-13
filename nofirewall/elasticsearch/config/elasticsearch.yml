@@ -1,2 +1,0 @@
-cluster.name: wheretolive
-node.name: ${HOSTNAME}
