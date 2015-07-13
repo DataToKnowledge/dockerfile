@@ -8,4 +8,4 @@ discovery.zen.ping.timeout: 30s
 discovery.zen.ping.multicast.enable: true
 discovery.zen.ping.unicast.hosts: ["esm0", "esm1"]
 
-node.name: ${HOSTNAME}
+node.name: {esn#}
