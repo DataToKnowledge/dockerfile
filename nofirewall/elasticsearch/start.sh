@@ -30,7 +30,7 @@ if [ -d "$baseDir" ]; then
   fi
   if [ ! -d "logsDir" ]; then
     mkdir -p $logsDir
-    sudo chown pollinate:ssh $dataDir
+    sudo chown pollinate:ssh $logsDir
   fi
 else
   echo "$baseDir not exists"
