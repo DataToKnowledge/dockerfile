@@ -15,7 +15,7 @@ fi
 name=$1
 
 if [[ $name =~ ^-?[0-9]+$ ]]; then
-  name="es$name"
+  name="c$name"
 fi
 
 baseDir="/data"
