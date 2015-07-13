@@ -9,5 +9,6 @@
     - ES_MIN_MEM=2g
     - ES_MAX_MEM=2g
   hostname: {es#}
+  name: {es#}
   volumes:
     - ./config:/usr/share/elasticsearch/config
