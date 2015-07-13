@@ -4,18 +4,18 @@ nginx:
     - "80:80"
     - "443:443"
   volumes:
-    - /data/nginx/conf.d:/etc/nginx/conf.d
-    - /data/nginx/html:/var/www/html
-    - /data/nginx/logs:/var/log/nginx
-    - /data/nginx/certs:/etc/nginx/certs
-    - /data/nginx/htpasswd:/etc/nginx/htpasswd
+    - ./data/nginx/conf.d:/etc/nginx/conf.d
+    - ./data/nginx/html:/var/www/html
+    - ./data/nginx/logs:/var/log/nginx
+    - ./data/nginx/certs:/etc/nginx/certs
+    - ./data/nginx/htpasswd:/etc/nginx/htpasswd
 
-docker-gen:
+dockerGen:
   image: jwilder/docker-gen
   volumes_from:
     - nginx
   volumes:
     - /var/run/docker.sock:/tmp/docker.sock:ro
-    - /data/docker-gen/templates:/etc/docker-gen/templates
+    - ./data/docker-gen/templates:/etc/docker-gen/templates
   command:
     -notify-sighup nginx -watch -only-exposed /etc/docker-gen/templates/nginx.tmpl /etc/nginx/conf.d/default.conf
