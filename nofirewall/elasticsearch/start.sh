@@ -26,28 +26,25 @@ logsDir="$esDir/logs"
 if [ -d "$baseDir" ]; then
   if [ ! -d "$dataDir" ]; then
     mkdir -p $dataDir
+    sudo chown pollinate:ssh $dataDir
   fi
   if [ ! -d "logsDir" ]; then
     mkdir -p $logsDir
+    sudo chown pollinate:ssh $dataDir
   fi
 else
   echo "$baseDir not exists"
 fi
 
-echo "    - $dataDir:/usr/share/elasticsearch/data" >> ./docker-compose.yml
-echo "    - $logsDir:/usr/share/elasticsearch/logs" >> ./docker-compose.yml
-
-#cp -f ./docker-compose.yml.template ./docker-compose.yml
-#sed -i.bak s/{es#}/$name/g ./docker-compose.yml
-
 imgName="elasticsearch:1.6.0.dtk"
 
 docker build -t $imgName .
-docker run --name $name --restart on-failure -h $name -P \
+docker rm $name &> /dev/null
+docker run --name $name --restart on-failure -h $name -P -d \
   -e ES_HEAP_SIZE=2g \
   -e ES_MIN_MEM=2g \
   -e ES_MAX_MEM=2g \
-  -v ./config:/usr/share/elasticsearch/config \
+  -v $(pwd)/config:/usr/share/elasticsearch/config \
   -v $dataDir:/usr/share/elasticsearch/data \
   -v $logsDir:/usr/share/elasticsearch/logs \
   $imgName
