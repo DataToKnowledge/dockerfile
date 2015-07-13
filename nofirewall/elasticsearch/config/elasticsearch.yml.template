@@ -1,6 +1,6 @@
 cluster.name: wheretolive
 
-network.publish_host: {esn#}
+network.publish_host: _ethwe:ipv4?
 
 discovery.zen.minimum_master_nodes: 1
 
