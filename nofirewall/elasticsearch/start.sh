@@ -55,8 +55,6 @@ echo "node.data: $data" >> $spwd/config/elasticsearch.yml
 
 sed -i.bak s/{esn#}/$name/g $spwd/config/elasticsearch.yml
 
-exit 0
-
 docker build -t $imgName .
 docker stop $name &> /dev/null
 docker rm $name &> /dev/null
