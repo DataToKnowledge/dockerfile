@@ -10,6 +10,4 @@
     - ES_MAX_MEM=2g
   hostname: {es#}
   volumes:
-   - ./config:/usr/share/elasticsearch/config
-   - /data/elasticsearch/{es#}/data:/usr/share/elasticsearch/data
-   - /data/elasticsearch/{es#}/logs:/usr/share/elasticsearch/logs
+    - ./config:/usr/share/elasticsearch/config
