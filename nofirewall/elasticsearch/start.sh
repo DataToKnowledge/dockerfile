@@ -12,6 +12,8 @@ EOF
     exit 1
 fi
 
+spwd=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
 master=false; [ "$1" == "-m" ] && master=true
 data=true; [ "$1" == "-m" ] && data=false
 
@@ -46,10 +48,12 @@ fi
 
 imgName="elasticsearch:1.6.0.dtk"
 
-cp -f ./config/elasticsearch.yml.template ./config/elasticsearch.yml
+cp -f $spwd/config/elasticsearch.yml.template $spwd/config/elasticsearch.yml
 
-echo "node.master: $master" >> ./config/elasticsearch.yml
-echo "node.data: $data" >> ./config/elasticsearch.yml
+echo "node.master: $master" >> $spwd/config/elasticsearch.yml
+echo "node.data: $data" >> $spwd/config/elasticsearch.yml
+
+sed -i.bak s/{esn#}/$name/g $spwd/config/elasticsearch.yml
 
 exit 0
 

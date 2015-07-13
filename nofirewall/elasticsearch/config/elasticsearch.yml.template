@@ -1,6 +1,11 @@
 cluster.name: wheretolive
 
+network.publish_host: {esn#}
+
 discovery.zen.minimum_master_nodes: 1
+
+discovery.zen.ping.timeout: 30s
+discovery.zen.ping.multicast.enable: true
 discovery.zen.ping.unicast.hosts: ["esm0", "esm1"]
 
 node.name: ${HOSTNAME}
