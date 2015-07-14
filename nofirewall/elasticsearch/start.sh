@@ -22,9 +22,9 @@ name=$last
 
 if [[ $name =~ ^-?[0-9]+$ ]]; then
   if [ $master == true ]; then
-    name="esm$name"
+    name="esm-$name"
   else
-    name="esd$name"
+    name="esd-$name"
   fi
 fi
 
