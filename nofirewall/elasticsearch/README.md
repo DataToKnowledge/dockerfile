@@ -1,81 +1,27 @@
-docker-elasticsearch
-====================
+# Elasticsearch
+This docker can be used to start either a master or data node.
 
-This image can be used via:
+I've created a convenient script to do this that takes in input one mandatory argument (the name or number of node to create) and an optional argument `-m` that indicates if this is a master node.
 
--	docker-compose
--	docker
+## Examples
+Cd to the directory where is the dockerfile.
 
-How to run with docker-compose
-==============================
-
-There is a `docker-compose.yml` to be used in development and a `production.yml` for production. Please refere to the [official documentation ](https://docs.docker.com/compose/extends/#example) for reference.
-
-To start in development:
-
-1.	`docker-compose up -d` start the service as daemon
-2.	`docker-compose -f production.yml up -d ` to start with production yaml.
-
-How to run with docker
-======================
-
-Build
------
-
-To build the images run
+Create a master node named `esm-#` with
 
 ```
-docker build -t="datatoknowledge/elasticsearch:1.5.2" ./
+$ ./start.sh -m #
 ```
 
-How to use this image
----------------------
-
-You can run the default `elasticsearch` command simply:
+Create a data node named `esd-#` with
 
 ```
-docker run -d elasticsearch
+$ ./start.sh #
 ```
 
-You can also pass in additional flags to `elasticsearch`:
+You can either pass an explicit name
 
 ```
-docker run -d elasticsearch elasticsearch -Des.node.name="TestNode"
+$ ./start.sh node_name
 ```
 
-This image comes with a default set of configuration files for `elasticsearch`, but if you want to provide your own set of configuration files, you can do so via a volume mounted at `/usr/share/elasticsearch/config`:
-
-```
-docker run -d -v "$PWD/config":/usr/share/elasticsearch/config elasticsearch
-```
-
-This image is configured with a volume at `/data` to hold the persisted index data. Use that path if you would like to keep the data in a mounted volume:
-
-```
-docker run -d -v "$PWD/esdata":/data elasticsearch
-```
-
-This image is configure with authentication in the folder `config\elasticsearch.yml`
-
-```
-http.basic.enabled: true
-http.basic.user: "username"
-http.basic.password: "password"
-```
-
-To connect to kopf using authentication we need that the index url should point to
-
-```
-http://user:password@localhost:9200/
-```
-
-How to use this image for production
-====================================
-
-Please follow this as checklist for running.
-
-When the cluster is ran in production we should:
-
-1.	check the `evnv_prod.list` for heap size
-2.	check that there exists a folder like `/data/elasticsearch/dataX` where X is number of the instance ran
-3.	setup the username and password as specified [our private config]()
+this will create a new data node named `node_name`

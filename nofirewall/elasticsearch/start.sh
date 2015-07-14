@@ -2,12 +2,14 @@
 
 if [ "$#" -eq 0 ]; then
     cat << 'EOF'
-You need to specify a name or a number for this elasticsearch node.
+Usage: start [OPTIONS] INDEX|NAME
+
+Options:
+  -m              If set indicates that is a master node
 
 Example:
-$: start 1
-or
-$: start node1
+$: start -m 0     -- Creates a master node named esm-0
+$: start node1    -- Creates a data node named node1
 EOF
     exit 1
 fi
@@ -55,7 +57,7 @@ echo "node.data: $data" >> $spwd/config/elasticsearch.yml
 
 sed -i.bak s/{esn#}/$name/g $spwd/config/elasticsearch.yml
 
-docker build -t $imgName .
+docker build -t $imgName $spwd
 docker stop $name &> /dev/null
 docker rm $name &> /dev/null
 docker run --name $name --restart on-failure -d \
@@ -66,5 +68,5 @@ docker run --name $name --restart on-failure -d \
   -e ES_HEAP_SIZE=2g \
   -v $dataDir:/usr/share/elasticsearch/data \
   -v $logsDir:/usr/share/elasticsearch/logs \
-  -v $(pwd)/config:/usr/share/elasticsearch/config \
+  -v $spwd/config:/usr/share/elasticsearch/config \
   $imgName
