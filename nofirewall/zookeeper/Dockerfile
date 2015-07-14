@@ -21,8 +21,9 @@ VOLUME ["/data", "/logs"]
 
 WORKDIR $ZOOKEEPER_HOME
 
-# used to give access to Elasticsearch to the folders
+# used to fix weave IP issue
 COPY docker-entrypoint.sh /
+
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
 EXPOSE 2181 2888 3888
