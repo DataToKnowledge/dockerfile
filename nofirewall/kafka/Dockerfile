@@ -12,7 +12,7 @@ RUN curl \
     --silent \
     http://mirrors.muzzy.it/apache/kafka/$KAFKA_VERSION/$KAFKA_PACKAGE.tgz \
     | tar xzf - -C / && \
-    mv /$ZOOKEEPER_PACKAGE $KAFKA_HOME && \
+    mv /$KAFKA_PACKAGE $KAFKA_HOME && \
     rm -rf /$KAFKA_HOME/conf
 
 COPY config $KAFKA_HOME/config
