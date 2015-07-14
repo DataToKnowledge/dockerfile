@@ -21,7 +21,9 @@ VOLUME ["/data", "/logs"]
 
 WORKDIR $ZOOKEEPER_HOME
 
-ENTRYPOINT ["/zookeeper/bin/zkServer.sh"]
+# used to give access to Elasticsearch to the folders
+COPY docker-entrypoint.sh /
+ENTRYPOINT ["/docker-entrypoint.sh"]
 
 EXPOSE 2181 2888 3888
 
