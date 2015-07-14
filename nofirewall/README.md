@@ -29,3 +29,6 @@ $ sudo echo > /etc/hosts
 when the container starts.
 
 We probably need a `docker-entrypoint.sh` that do this like the one in [ZooKeeper dockerfile](zookeeper/docker-entrypoint.sh)
+
+## TODO
+- ZooKeeper use the `/etc/hosts` workaround but ElasticSearch use a particular configuration. Evaluate to apply the workaround to ElastiSearch too.
