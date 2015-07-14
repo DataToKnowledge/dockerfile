@@ -28,6 +28,7 @@ logsDir="$zooDir/logs"
 if [ -d "$baseDir" ]; then
   if [ ! -d "$dataDir" ]; then
     mkdir -p $dataDir
+    echo $last > $dataDir/myid
   fi
   if [ ! -d "logsDir" ]; then
     mkdir -p $logsDir
