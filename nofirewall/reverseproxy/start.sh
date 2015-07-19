@@ -10,6 +10,7 @@ stseDir="$nginxDir/sites-enabled"
 crtsDir="$nginxDir/certs"
 logsDir="$nginxDir/logs"
 htmlDir="$nginxDir/html"
+htpsDir="$nginxDir/htpasswd"
 
 paths=($confDir $tmplDir $stseDir $crtsDir $logsDir $htmlDir)
 
@@ -29,10 +30,11 @@ fi
 docker stop nginx &> /dev/null
 docker rm nginx &> /dev/null
 docker run -dt -p 80:80 --name nginx \
-  -v $confDir:/etc/nginx/conf.d \
   -v $stseDir:/etc/nginx/sites-enabled \
-  -v $crtsDir:/etc/nginx/certs \
+  -v $htpsDir:/etc/nginx/htpasswd \
   -v $confDir:/etc/nginx/conf.d \
+  -v $confDir:/etc/nginx/conf.d \
+  -v $crtsDir:/etc/nginx/certs \
   -v $logsDir:/var/log/nginx \
   -v $htmlDir:/var/www/html \
   nginx
