@@ -6,22 +6,33 @@ baseDir="/data"
 nginxDir="$baseDir/nginx"
 confDir="$nginxDir/conf.d"
 tmplDir="$nginxDir/templates"
+stseDir="$nginxDir/sites-enabled"
+crtsDir="$nginxDir/certs"
+logsDir="$nginxDir/logs"
+htmlDir="$nginxDir/html"
+
+paths=($confDir $tmplDir $stseDir $crtsDir $logsDir $htmlDir)
 
 if [ -d "$baseDir" ]; then
-  if [ ! -d "$confDir" ]; then
-    mkdir -p $confDir
-  fi
-  if [ ! -d "$tmplDir" ]; then
-    mkdir -p $tmplDir
-    cp $spwd/templates/nginx.tmpl $tmplDir/nginx.tmpl
-  fi
+  for i in "${paths[@]}"
+  do
+    if [ ! -d "$i" ]; then
+      mkdir -p $i
+    fi
+  done
+  cp $spwd/templates/nginx.tmpl $tmplDir/nginx.tmpl
 else
   echo "$baseDir not exists"
 fi
 
 # start nginx
 docker run -dt -p 80:80 --name nginx \
-  -v /tmp/nginx:/etc/nginx/conf.d \
+  -v $confDir:/etc/nginx/conf.d \
+  -v $stseDir:/etc/nginx/sites-enabled \
+  -v $crtsDir:/etc/nginx/certs \
+  -v $confDir:/etc/nginx/conf.d \
+  -v $logsDir:/var/log/nginx \
+  -v $htmlDir:/var/www/html \
   nginx
 
 # start docker-gen
