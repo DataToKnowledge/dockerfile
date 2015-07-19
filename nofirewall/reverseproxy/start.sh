@@ -43,7 +43,7 @@ docker rm docker-gen &> /dev/null
 docker run --volumes-from nginx --name docker-gen \
   -v /var/run/docker.sock:/tmp/docker.sock:ro \
   -v $tmplDir:/etc/docker-gen/templates \
-  -t jwilder/docker-gen \
+  -dt jwilder/docker-gen \
   -notify-sighup nginx -watch -only-exposed \
   /etc/docker-gen/templates/nginx.tmpl \
   /etc/nginx/conf.d/default.conf
