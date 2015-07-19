@@ -13,7 +13,7 @@ if [ -d "$baseDir" ]; then
   fi
   if [ ! -d "$tmplDir" ]; then
     mkdir -p $tmplDir
-    cp $spwd/templates/nginx.tmlp $tmplDir/nginx.tmlp
+    cp $spwd/templates/nginx.tmpl $tmplDir/nginx.tmpl
   fi
 else
   echo "$baseDir not exists"
