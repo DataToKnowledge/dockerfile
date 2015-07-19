@@ -12,7 +12,7 @@ logsDir="$nginxDir/logs"
 htmlDir="$nginxDir/html"
 htpsDir="$nginxDir/htpasswd"
 
-paths=($confDir $tmplDir $stseDir $crtsDir $logsDir $htmlDir)
+paths=($confDir $tmplDir $stseDir $crtsDir $logsDir $htmlDir $htpsDir)
 
 if [ -d "$baseDir" ]; then
   for i in "${paths[@]}"
