@@ -62,10 +62,6 @@ if [ $master == true ]; then
   echo "spark.deploy.recoveryMode ZOOKEEPER" >> $confDir/spark-default.conf
   echo "spark.deploy.zookeeper.url zoo-1:2181,zoo-2:2181,zoo-3:2181" >> $confDir/spark-default.conf
   docker run --name $name --restart on-failure -d \
-    -p 4040:4040 \
-    -p 6066:6066 \
-    -p 7077:7077 \
-    -p 8080:8080 \
     -v $dataDir:/tmp/data \
     -v $logsDir:/logs \
     -v $confDir:/conf \
@@ -73,7 +69,6 @@ if [ $master == true ]; then
     org.apache.spark.deploy.master.Master -h $name
 else
   docker run --name $name --restart on-failure -d \
-    -p 8081:8081 \
     -v $dataDir:/tmp/data \
     -v $logsDir:/logs \
     -v $confDir:/conf \

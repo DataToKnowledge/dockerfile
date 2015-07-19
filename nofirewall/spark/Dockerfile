@@ -19,8 +19,8 @@ RUN curl \
 
 RUN sed 's/^\(hosts:[\ ]*\)\(files\)\ \(dns\)$/\1\3 \2/' -i /etc/nsswitch.conf
 
-EXPOSE 51001-51006
-
 WORKDIR $SPARK_HOME
+
+EXPOSE 4040 6066 7077 8080 8081
 
 ENTRYPOINT ["/spark/bin/spark-class"]
