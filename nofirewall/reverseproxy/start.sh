@@ -26,6 +26,8 @@ else
 fi
 
 # start nginx
+docker stop nginx &> /dev/null
+docker rm nginx &> /dev/null
 docker run -dt -p 80:80 --name nginx \
   -v $confDir:/etc/nginx/conf.d \
   -v $stseDir:/etc/nginx/sites-enabled \
@@ -36,7 +38,9 @@ docker run -dt -p 80:80 --name nginx \
   nginx
 
 # start docker-gen
-docker run --volumes-from nginx \
+docker stop docker-gen &> /dev/null
+docker rm docker-gen &> /dev/null
+docker run --volumes-from nginx --name docker-gen \
   -v /var/run/docker.sock:/tmp/docker.sock:ro \
   -v $tmplDir:/etc/docker-gen/templates \
   -t jwilder/docker-gen \
