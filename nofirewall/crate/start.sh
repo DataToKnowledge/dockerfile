@@ -43,4 +43,4 @@ docker stop $name &> /dev/null
 docker rm $name &> /dev/null
 docker run --name $name --restart on-failure -d \
   -v $dataDir:/data \
-  $imgName
+  $imgName crate -Des.network.publish_host=$name
