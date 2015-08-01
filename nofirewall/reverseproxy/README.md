@@ -42,3 +42,11 @@ If no command `htpasswd` is found then you need to install `apache2-utils` with:
 ```
 $ sudo apt-get install apache2-utils
 ```
+
+After added a custom upstream you can greacefully restart nginx with
+
+```
+docker kill -s HUP nginx
+```
+
+or using the script [reloadconfig.sh](reloadconfig.sh)
