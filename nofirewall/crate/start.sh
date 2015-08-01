@@ -42,7 +42,5 @@ docker build -t $imgName $spwd
 docker stop $name &> /dev/null
 docker rm $name &> /dev/null
 docker run --name $name --restart on-failure -d \
-  -p 4200:4200 \
-  -p 4300:4300 \
   -v $dataDir:/data \
   $imgName
