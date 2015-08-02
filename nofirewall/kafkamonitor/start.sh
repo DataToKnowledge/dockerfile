@@ -22,7 +22,7 @@ docker build -t $imgName $spwd
 docker stop $name &> /dev/null
 docker rm $name &> /dev/null
 
-docker run -d \
+docker run -d --name $name \
   -v $dataDir:/data \
   -e ZK="zoo-1,zoo-2,zoo-3" \
   $imgName
