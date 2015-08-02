@@ -5,8 +5,8 @@ spwd=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 name=kfkmntr
 
 baseDir="/data"
-spDir="$baseDir/kafkamonitor"
-dataDir="$spDir/data"
+kfmDir="$baseDir/kafkamonitor"
+dataDir="$kfmDir/data"
 
 if [ -d "$baseDir" ]; then
   if [ ! -d "$dataDir" ]; then
