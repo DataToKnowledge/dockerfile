@@ -11,21 +11,34 @@ Expose a container
 If we have an application named `myapp` just make a file named `myapp.conf` in `/data/nginx/conf.d` with this content:
 
 ```
-upstream myapp.datatoknowledge.it {
-  # elastic search
-  server myapp-0:PORT;
-  server myapp-1:PORT;
+upstream name-app.datatoknowledge.it {
+                   # name-app
+                   server name-app:5000;
 }
 
 server {
-  server_name myapp.datatoknowledge.it;
-  location / {
-    proxy_pass http://myapp.datatoknowledge.it;
+        gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
 
-    # Optional, only if the app need authentication.
-    auth_basic    "Restricted myapp.datatoknowledge.it";
-    auth_basic_user_file /etc/nginx/htpasswd/myapp;
-  }
+        server_name name-app.datatoknowledge.it;
+        proxy_buffering off;
+        error_log /proc/self/fd/2;
+        access_log /proc/self/fd/1;
+
+        location / {
+                proxy_pass http://name-app.datatoknowledge.it;
+                proxy_set_header Host $http_host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+
+                # HTTP 1.1 support
+                proxy_http_version 1.1;
+                proxy_set_header Connection "";
+
+                # Optional, only if the app need authentication.
+                auth_basic    "Restricted name-app.datatoknowledge.it";
+                auth_basic_user_file /etc/nginx/htpasswd/name-app;
+        }
 }
 ```
 
