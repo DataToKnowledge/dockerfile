@@ -14,6 +14,7 @@ htpsDir="$nginxDir/htpasswd"
 
 paths=($confDir $tmplDir $stseDir $crtsDir $logsDir $htmlDir $htpsDir)
 
+#create the folder for the above listed folders
 if [ -d "$baseDir" ]; then
   for i in "${paths[@]}"
   do
@@ -38,7 +39,7 @@ docker run -dt -p 80:80 --name nginx \
   -v $htmlDir:/var/www/html \
   nginx
 
-# start docker-gen
+# start docker-gen with the templateDir mapped
 docker stop docker-gen &> /dev/null
 docker rm docker-gen &> /dev/null
 docker run --volumes-from nginx --name docker-gen \
