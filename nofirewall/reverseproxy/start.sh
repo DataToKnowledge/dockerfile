@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+#this is used to get the right path of the script path
 spwd=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 baseDir="/data"
