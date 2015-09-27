@@ -40,7 +40,7 @@ server {
                 auth_basic_user_file /etc/nginx/htpasswd/wtl;
         }
 }
-      ```
+```
 
 If `myapp` needs authentication create a file named `myapp` in `/data/nginx/htpasswd` using [htpasswd](http://httpd.apache.org/docs/2.2/programs/htpasswd.html) with:
 
