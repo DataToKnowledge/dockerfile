@@ -3,7 +3,7 @@ Nginx with Docker-gen
 
 This docker can be used to start a reverse proxy with [nginx](http://nginx.org/en/) and [docker-gen](https://github.com/jwilder/docker-gen) as nginx configuration generator.
 
-To setup the service run the script `./start.sh`. It needs as parameter a directory with the base templates for nginx. It will create all the need directories for ngins and setup the dockers. Please select carefully the base directory by copying the folder to another directory
+To setup the service run the script `./start.sh`. By default the docker is installed in the directory `data/nginx`.
 
 Expose a container
 ==================

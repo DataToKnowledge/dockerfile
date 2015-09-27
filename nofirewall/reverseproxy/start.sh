@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# read the base dir as parameter
-base_pwd=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+# read the source dire
+script_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 # create the directory needed for the container
 baseDir="/data"
@@ -24,7 +24,7 @@ if [ -d "$baseDir" ]; then
       mkdir -p $i
     fi
   done
-  cp $base_pwd/templates/nginx.tmpl $tmplDir/nginx.tmpl
+  cp $script_dir/templates/nginx.tmpl $tmplDir/nginx.tmpl
 else
   echo "$baseDir not exists"
 fi
@@ -33,13 +33,13 @@ fi
 docker stop nginx &> /dev/null
 docker rm nginx &> /dev/null
 docker run -dt -p 80:80 --name nginx \
+  -v $confDir:/etc/nginx/conf.d \
+  -v $tmplDir:/etc/nginx/templates \
   -v $stseDir:/etc/nginx/sites-enabled \
-  -v $htpsDir:/etc/nginx/htpasswd \
-  -v $confDir:/etc/nginx/conf.d \
-  -v $confDir:/etc/nginx/conf.d \
   -v $crtsDir:/etc/nginx/certs \
-  -v $logsDir:/var/log/nginx \
+  -v $logsDir:/etc/nginx/logs \
   -v $htmlDir:/var/www/html \
+  -v $htpsDir:/etc/nginx/htpasswd \
   nginx
 
 # start docker-gen
