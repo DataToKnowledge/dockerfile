@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
-spwd=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+# base template to use
+template_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
+# create the directory needed for the container
 baseDir="/data"
 nginxDir="$baseDir/nginx"
 confDir="$nginxDir/conf.d"
@@ -14,6 +16,7 @@ htpsDir="$nginxDir/htpasswd"
 
 paths=($confDir $tmplDir $stseDir $crtsDir $logsDir $htmlDir $htpsDir)
 
+# create the directories
 if [ -d "$baseDir" ]; then
   for i in "${paths[@]}"
   do
