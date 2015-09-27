@@ -51,4 +51,6 @@ docker run --volumes-from nginx --name docker-gen \
   -dt jwilder/docker-gen \
   -notify-sighup nginx -watch -only-exposed \
   /etc/docker-gen/templates/nginx.tmpl \
+  /etc/docker-gen/templates/fluentd.conf.tmpl \
+  /etc/docker-gen/templates/logrotate.tmpl \
   /etc/nginx/conf.d/default.conf
