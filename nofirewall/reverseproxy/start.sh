@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
-# read the source dire
-script_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+spwd=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-# create the directory needed for the container
 baseDir="/data"
 nginxDir="$baseDir/nginx"
 confDir="$nginxDir/conf.d"
@@ -16,7 +14,6 @@ htpsDir="$nginxDir/htpasswd"
 
 paths=($confDir $tmplDir $stseDir $crtsDir $logsDir $htmlDir $htpsDir)
 
-# create the directories
 if [ -d "$baseDir" ]; then
   for i in "${paths[@]}"
   do
@@ -24,7 +21,7 @@ if [ -d "$baseDir" ]; then
       mkdir -p $i
     fi
   done
-  cp $script_dir/templates/nginx.tmpl $tmplDir/nginx.tmpl
+  cp $spwd/templates/nginx.tmpl $tmplDir/nginx.tmpl
 else
   echo "$baseDir not exists"
 fi
@@ -34,12 +31,11 @@ docker stop nginx &> /dev/null
 docker rm nginx &> /dev/null
 docker run -dt -p 80:80 --name nginx \
   -v $confDir:/etc/nginx/conf.d \
-  -v $tmplDir:/etc/nginx/templates \
   -v $stseDir:/etc/nginx/sites-enabled \
-  -v $crtsDir:/etc/nginx/certs \
-  -v $logsDir:/etc/nginx/logs \
-  -v $htmlDir:/var/www/html \
   -v $htpsDir:/etc/nginx/htpasswd \
+  -v $crtsDir:/etc/nginx/certs \
+  -v $logsDir:/var/log/nginx \
+  -v $htmlDir:/var/www/html \
   nginx
 
 # start docker-gen
