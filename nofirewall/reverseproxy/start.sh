@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# base template to use
-template_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+# read the base dir as parameter
+base_pwd=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 # create the directory needed for the container
 baseDir="/data"
@@ -24,7 +24,7 @@ if [ -d "$baseDir" ]; then
       mkdir -p $i
     fi
   done
-  cp $spwd/templates/nginx.tmpl $tmplDir/nginx.tmpl
+  cp $base_pwd/templates/nginx.tmpl $tmplDir/nginx.tmpl
 else
   echo "$baseDir not exists"
 fi
