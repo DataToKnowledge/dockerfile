@@ -5,7 +5,7 @@ if [ "$#" -eq 0 ]; then
 Usage: start INDEX|NAME
 
 Example:
-$: start 1      -- Creates a node named kfk-1
+$: start 1      -- Creates a node named kafka-1
 $: start node1  -- Creates a node named node1
 EOF
     exit 1
@@ -17,13 +17,13 @@ for last; do true; done
 name=$last
 
 if [[ $name =~ ^-?[0-9]+$ ]]; then
-  name="kfk-$name"
+  name="kafka-$name"
 fi
 
 baseDir="/data"
-kfkDir="$baseDir/kafka"
-dataDir="$kfkDir/data"
-logsDir="$kfkDir/logs"
+kafakaDir="$baseDir/kafka"
+dataDir="$kafkaDir/data"
+logsDir="$kafkaDir/logs"
 
 if [ -d "$baseDir" ]; then
   if [ ! -d "$dataDir" ]; then
