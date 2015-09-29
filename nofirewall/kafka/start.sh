@@ -42,7 +42,7 @@ cat $spwd/config/server.properties.template \
   | sed "s|{kfk#}|$name|g" \
    > $spwd/config/server.properties
 
-imgName="kafka:0.8.2.1.dtk"
+imgName="data2knowledge/kafka:0.8.2.1"
 
 docker build -t $imgName $spwd
 docker stop $name &> /dev/null

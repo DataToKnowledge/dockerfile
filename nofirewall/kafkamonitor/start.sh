@@ -16,7 +16,7 @@ else
   echo "$baseDir not exists"
 fi
 
-imgName="kafkamonitor:0.2.1.dtk"
+imgName="data2knowledge/kafkamonitor:0.2.1"
 
 docker build -t $imgName $spwd
 docker stop $name &> /dev/null

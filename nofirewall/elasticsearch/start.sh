@@ -48,7 +48,7 @@ else
   echo "$baseDir not exists"
 fi
 
-imgName="elasticsearch:1.6.0.dtk"
+imgName="data2knowledge/elasticsearch:1.6.0"
 
 cp -f $spwd/config/elasticsearch.yml.template $spwd/config/elasticsearch.yml
 

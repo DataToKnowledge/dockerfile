@@ -36,7 +36,7 @@ else
   echo "$baseDir not exists"
 fi
 
-imgName="crate:0.50.2.dtk"
+imgName="data2knowledge/crate:0.50.2"
 
 docker build -t $imgName $spwd
 docker stop $name &> /dev/null

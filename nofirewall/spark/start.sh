@@ -49,7 +49,7 @@ else
   echo "$baseDir not exists"
 fi
 
-imgName="spark:1.4.1.dtk"
+imgName="data2knowledge/spark:1.4.1"
 
 cp -f $spwd/config/* $confDir/
 
