@@ -2,7 +2,7 @@
 
 spwd=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-name=kfkmntr
+name=kafka-monitor
 
 baseDir="/data"
 kfmDir="$baseDir/kafkamonitor"
