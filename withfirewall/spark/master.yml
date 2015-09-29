@@ -1,8 +1,0 @@
-master:
-    extends:
-        file: base.yml
-        service: spark
-    ports:
-        - 4040:4040
-        - 7077:7077
-        - 8080:8080

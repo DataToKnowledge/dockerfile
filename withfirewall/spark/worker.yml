@@ -1,6 +1,0 @@
-worker:
-    extends:
-        file: base.yml
-        service: spark
-    ports:
-        - 8081:8081
