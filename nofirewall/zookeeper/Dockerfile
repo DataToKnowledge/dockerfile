@@ -11,7 +11,6 @@ ENV ZOOKEEPER_HOME /zookeeper
 ENV PATH $PATH:$ZOOKEEPER_HOME/bin
 
 RUN curl \
-    --silent \
     http://mirrors.muzzy.it/apache/zookeeper/$ZOOKEEPER_PACKAGE/$ZOOKEEPER_PACKAGE.tar.gz \
     | tar xzf - -C / && \
     mv /$ZOOKEEPER_PACKAGE $ZOOKEEPER_HOME && \

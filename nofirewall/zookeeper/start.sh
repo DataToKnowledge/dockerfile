@@ -37,7 +37,7 @@ else
   echo "$baseDir not exists"
 fi
 
-imgName="zookeeper:3.4.6.dtk"
+imgName="data2knowledge/zookeeper:3.4.6"
 
 docker build -t $imgName $spwd
 docker stop $name &> /dev/null
