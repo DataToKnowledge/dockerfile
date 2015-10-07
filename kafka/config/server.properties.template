@@ -91,7 +91,7 @@ num.recovery.threads.per.data.dir=1
 # from the end of the log.
 
 # The minimum age of a log file to be eligible for deletion
-log.retention.hours=168
+log.retention.hours=336
 
 # A size-based retention policy for logs. Segments are pruned from the log as long as the remaining
 # segments don't drop below log.retention.bytes.
@@ -119,3 +119,6 @@ zookeeper.connect=zoo-1:2181,zoo-2:2181,zoo-3:2181
 
 # Timeout in ms for connecting to zookeeper
 zookeeper.connection.timeout.ms=6000
+
+# to enable the topic deletion
+delete.topic.enable=true
