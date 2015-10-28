@@ -6,7 +6,7 @@ I've created a convenient script to do this that takes in input one mandatory ar
 ## Examples
 Cd to the directory where is the dockerfile.
 
-Create a node named `kfk-#` with
+Create a node named `kafka-#` with
 
 ```
 $ ./start.sh #
