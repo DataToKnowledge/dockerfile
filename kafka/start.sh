@@ -20,22 +20,7 @@ if [[ $name =~ ^-?[0-9]+$ ]]; then
   name="kafka-$name"
 fi
 
-baseDir="/data"
-kafakaDir="$baseDir/kafka"
-dataDir="$kafkaDir/data"
-logsDir="$kafkaDir/logs"
-
-if [ -d "$baseDir" ]; then
-  if [ ! -d "$dataDir" ]; then
-    mkdir -p $dataDir
-    echo $last > $dataDir/myid
-  fi
-  if [ ! -d "logsDir" ]; then
-    mkdir -p $logsDir
-  fi
-else
-  echo "$baseDir not exists"
-fi
+logsDir=="/data/kafka/logs"
 
 cat $spwd/config/server.properties.template \
   | sed "s|{kfid}|$last|g" \
@@ -44,13 +29,15 @@ cat $spwd/config/server.properties.template \
 
 imgName="data2knowledge/kafka:0.8.2.1"
 
+echo $logsDir
+echo $spwd
+
 docker build -t $imgName $spwd
 docker stop $name &> /dev/null
 docker rm $name &> /dev/null
 docker run --name $name --restart on-failure -d \
   -p 9092:9092 \
   -p 7203:7203 \
-  -v $dataDir:/data \
   -v $logsDir:/logs \
   -v $spwd/config:/kafka/conf \
   $imgName
