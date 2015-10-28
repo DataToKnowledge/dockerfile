@@ -29,7 +29,6 @@ cat $spwd/config/server.properties.template \
 
 imgName="data2knowledge/kafka:0.8.2.1"
 
-echo $logsDir
 echo $spwd
 
 docker build -t $imgName $spwd
@@ -38,6 +37,6 @@ docker rm $name &> /dev/null
 docker run --name $name --restart on-failure -d \
   -p 9092:9092 \
   -p 7203:7203 \
-  -v $logsDir:/logs \
+  -v /data/kafka/logs:/logs \
   -v $spwd/config:/kafka/conf \
   $imgName
