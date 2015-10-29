@@ -8,4 +8,6 @@ RUN /usr/share/elasticsearch/bin/plugin --install elasticsearch/elasticsearch-an
 # install kopf manager
 RUN  /usr/share/elasticsearch/bin/plugin --install lmenezes/elasticsearch-kopf/master
 
-VOLUME /usr/share/elasticsearch/logs
+EXPOSE 9200 9300
+
+VOLUME ["/usr/share/elasticsearch/logs"]

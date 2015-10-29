@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+#if no parameter is passed to the script, print the usage help
 if [ "$#" -eq 0 ]; then
     cat << 'EOF'
 Usage: start INDEX|NAME
@@ -11,11 +12,15 @@ EOF
     exit 1
 fi
 
+#spwd holds the dirname of this script
 spwd=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
+#this cycle get the last argument passed to the script
+#and save that in the $name variable, to use for naming the container
 for last; do true; done
 name=$last
 
+#if $name is a number then change it in "kafka-#"
 if [[ $name =~ ^-?[0-9]+$ ]]; then
   name="zoo-$name"
 fi
@@ -25,6 +30,7 @@ zooDir="$baseDir/zookeeper"
 dataDir="$zooDir/data"
 logsDir="$zooDir/logs"
 
+#if $baseDir exists, then create the other subdirectories
 if [ -d "$baseDir" ]; then
   if [ ! -d "$dataDir" ]; then
     mkdir -p $dataDir
@@ -33,7 +39,7 @@ if [ -d "$baseDir" ]; then
   if [ ! -d "logsDir" ]; then
     mkdir -p $logsDir
   fi
-else
+else #show an error message
   echo "$baseDir not exists"
 fi
 

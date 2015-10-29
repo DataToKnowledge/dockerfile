@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+#if no parameter is passed to the script, print the usage help
 if [ "$#" -eq 0 ]; then
     cat << 'EOF'
 Usage: start [OPTIONS] INDEX|NAME
@@ -14,30 +15,36 @@ EOF
     exit 1
 fi
 
+#spwd holds the dirname of this script
 spwd=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
+#if is passed the parameter -m then set master to true
 master=false; [ "$1" == "-m" ] && master=true
-data=true; [ "$1" == "-m" ] && data=false
 
+#this cycle get the last argument passed to the script
+#and save that in the $name variable, to use for naming the container
 for last; do true; done
 name=$last
 
+#if $name is a number then change it in:
 if [[ $name =~ ^-?[0-9]+$ ]]; then
-  if [ $master == true ]; then
+  if [ $master == true ]; then #"spm-#" if is master node
     name="spm-$name"
   else
-    name="spw-$name"
+    name="spw-$name" #"spw-#" if is a worker node
   fi
 fi
 
 baseDir="/data"
-spDir="$baseDir/spark"
-dataDir="$spDir/data"
-confDir="$spDir/config"
-logsDir="$spDir/logs"
+sparkDir="$baseDir/spark"
+dataDir="$sparkDir/data"
+confDir="$sparkDir/config"
+logsDir="$sparkDir/logs"
 
+#an array that contains all the needed directories
 paths=($confDir $dataDir $logsDir)
 
+#if $baseDir exists, then create the other subdirectories
 if [ -d "$baseDir" ]; then
   for i in "${paths[@]}"
   do
@@ -45,14 +52,13 @@ if [ -d "$baseDir" ]; then
       mkdir -p $i
     fi
   done
-else
+else #show an error message
   echo "$baseDir not exists"
 fi
 
 imgName="data2knowledge/spark:1.4.1"
 
 cp -f $spwd/config/* $confDir/
-
 
 docker build -t $imgName $spwd
 docker stop $name &> /dev/null

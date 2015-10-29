@@ -19,7 +19,7 @@ COPY config $KAFKA_HOME/config
 
 EXPOSE 9092 7203
 
-VOLUME ["/logs"]
+VOLUME ["/data", "/logs"]
 
 # used to fix weave IP issue
 COPY docker-entrypoint.sh /
