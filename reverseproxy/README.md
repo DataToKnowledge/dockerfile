@@ -3,7 +3,7 @@ Nginx with Docker-gen
 
 This docker can be used to start a reverse proxy with [nginx](http://nginx.org/en/) and [docker-gen](https://github.com/jwilder/docker-gen) as nginx configuration generator.
 
-To setup the service run the script `./start.sh`. By default the docker is installed in the directory `data/nginx`.
+To setup the service run the script `./start.sh`. By default the docker is installed in the directory `/data/nginx`.
 
 Expose a container
 ==================
@@ -60,7 +60,7 @@ $ sudo apt-get install apache2-utils
 
 After added a custom upstream you can greacefully restart nginx with
 
-```
+\`\`\`
 
 docker kill -s HUP nginx\`\`\`
 

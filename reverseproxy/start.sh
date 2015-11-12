@@ -31,7 +31,7 @@ fi
 # start nginx
 docker stop nginx &> /dev/null
 docker rm nginx &> /dev/null
-docker run -dt -p 80:80 --name nginx \
+docker run --privileged -dt -p 80:80 --name nginx \
   -v $confDir:/etc/nginx/conf.d \
   -v $stseDir:/etc/nginx/sites-enabled \
   -v $htpsDir:/etc/nginx/htpasswd \
@@ -43,7 +43,7 @@ docker run -dt -p 80:80 --name nginx \
 # start docker-gen with the templateDir mapped
 docker stop docker-gen &> /dev/null
 docker rm docker-gen &> /dev/null
-docker run --volumes-from nginx --name docker-gen \
+docker run --privileged --volumes-from nginx --name docker-gen \
   -v /var/run/docker.sock:/tmp/docker.sock:ro \
   -v $tmplDir:/etc/docker-gen/templates \
   -dt jwilder/docker-gen \
