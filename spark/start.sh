@@ -9,7 +9,7 @@ Options:
   --master             If set indicates that is a master node
 
 Example:
-$: start --master <name>: Creates a master node named spark-master-<name> [the names should be 0 or 1] 
+$: start --master <name>: Creates a master node named spark-master-<name> [the names should be 0 or 1]
 $: start --worker <name>: Creates a worker node named spark-worker-<name>
 EOF
     exit 1
@@ -66,14 +66,14 @@ docker rm $name &> /dev/null
 if [ $master == true ]; then
   echo "spark.deploy.recoveryMode ZOOKEEPER" >> $confDir/spark-default.conf
   echo "spark.deploy.zookeeper.url zoo-1:2181,zoo-2:2181,zoo-3:2181" >> $confDir/spark-default.conf
-  docker run --name $name --restart on-failure -d \
+  docker run --net=weave --name $name --restart on-failure -d \
     -v $dataDir:/tmp/data \
     -v $logsDir:/logs \
     -v $confDir:/conf \
     $imgName \
     org.apache.spark.deploy.master.Master -h $name
 else
-  docker run --name $name --restart on-failure -d \
+  docker run --net=weave --name $name --restart on-failure -d \
     -v $dataDir:/tmp/data \
     -v $logsDir:/logs \
     -v $confDir:/conf \

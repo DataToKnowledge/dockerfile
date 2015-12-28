@@ -48,7 +48,7 @@ imgName="data2knowledge/zookeeper:3.4.7"
 docker build -t $imgName $spwd
 docker stop $name &> /dev/null
 docker rm $name &> /dev/null
-docker run --name $name --restart on-failure -d \
+docker run --net=weave --name $name --restart on-failure -d \
   -p 2181:2181 \
   -p 2888:2888 \
   -p 3888:3888 \
