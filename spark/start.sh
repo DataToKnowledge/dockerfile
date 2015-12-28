@@ -6,11 +6,11 @@ if [ "$#" -eq 0 ]; then
 Usage: start [OPTIONS] INDEX|NAME
 
 Options:
-  -m              If set indicates that is a master node
+  --master             If set indicates that is a master node
 
 Example:
-$: start -m 0     -- Creates a master node named spm-0
-$: start node1    -- Creates a data node named node1
+$: start --master <name>: Creates a master node named spark-master-<name> [the names should be 0 or 1] 
+$: start --worker <name>: Creates a worker node named spark-worker-<name>
 EOF
     exit 1
 fi
@@ -18,20 +18,18 @@ fi
 #spwd holds the dirname of this script
 spwd=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-#if is passed the parameter -m then set master to true
-master=false; [ "$1" == "-m" ] && master=true
+#if is passed the parameter --master then set master to true
+master=false; [ "$1" == "--master" ] && master=true
 
-#this cycle get the last argument passed to the script
-#and save that in the $name variable, to use for naming the container
-for last; do true; done
-name=$last
+#the name of the node
+name=$2
 
 #if $name is a number then change it in:
 if [[ $name =~ ^-?[0-9]+$ ]]; then
-  if [ $master == true ]; then #"spm-#" if is master node
-    name="spm-$name"
+  if [ $master == true ]; then #"spark-master-#" if is master node
+    name="spark-master-$name"
   else
-    name="spw-$name" #"spw-#" if is a worker node
+    name="spark-worker-$name" #"spark-worker-#" if is a worker node
   fi
 fi
 
@@ -56,10 +54,11 @@ else #show an error message
   echo "$baseDir not exists"
 fi
 
-imgName="data2knowledge/spark:1.4.1"
+imgName="data2knowledge/spark:1.5.2"
 
 cp -f $spwd/config/* $confDir/
 
+#build the docker file in the spwd folder
 docker build -t $imgName $spwd
 docker stop $name &> /dev/null
 docker rm $name &> /dev/null
@@ -79,5 +78,5 @@ else
     -v $logsDir:/logs \
     -v $confDir:/conf \
     $imgName \
-    org.apache.spark.deploy.worker.Worker -h $name spark://spm-0:7077
+    org.apache.spark.deploy.worker.Worker -h $name spark://spark-master-0:7077,spark-master-1:7077
 fi

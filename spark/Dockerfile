@@ -4,7 +4,7 @@ RUN apt-get update && \
     apt-get -y install curl
 
 #SPARK
-ENV SPARK_VERSION 1.4.1
+ENV SPARK_VERSION 1.5.2
 ENV HADOOP_VERSION 2.6
 ENV SPARK_PACKAGE spark-$SPARK_VERSION-bin-hadoop$HADOOP_VERSION
 ENV SPARK_HOME /spark
@@ -17,6 +17,7 @@ RUN curl \
     | tar x -C / && \
     mv /$SPARK_PACKAGE $SPARK_HOME
 
+# add the hostname to the container
 RUN sed 's/^\(hosts:[\ ]*\)\(files\)\ \(dns\)$/\1\3 \2/' -i /etc/nsswitch.conf
 
 WORKDIR $SPARK_HOME
