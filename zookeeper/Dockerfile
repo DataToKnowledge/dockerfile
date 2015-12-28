@@ -1,11 +1,10 @@
 FROM java:8-jre
 
 RUN apt-get update && \
-    apt-get -y install curl && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get -y install curl
 
 #zookeeper
-ENV ZOOKEEPER_VERSION 3.4.6
+ENV ZOOKEEPER_VERSION 3.4.7
 ENV ZOOKEEPER_PACKAGE zookeeper-$ZOOKEEPER_VERSION
 ENV ZOOKEEPER_HOME /zookeeper
 ENV PATH $PATH:$ZOOKEEPER_HOME/bin
