@@ -22,7 +22,7 @@ if [[ $id == ^-?[0-9]+$ ]]; then
   exit 1
 fi
 
-$name="zoo-$id"
+name="zoo-$id"
 
 baseDir="/data"
 zooDir="$baseDir/zookeeper"
@@ -42,9 +42,9 @@ else #show an error message
   echo "$baseDir not exists"
 fi
 
+echo "starting a redis istance with name $name"
 imgName="data2knowledge/zookeeper:3.4.7"
 
-echo "starting a redis istance with name $name"
 docker build -t $imgName $spwd
 docker stop $name &> /dev/null
 docker rm $name &> /dev/null
