@@ -1,31 +1,23 @@
 FROM java:8-jre
 
 RUN apt-get update && \
-    apt-get -y install curl
+apt-get install -y python
 
 #zookeeper
-ENV ZOOKEEPER_VERSION 3.4.7
-ENV ZOOKEEPER_PACKAGE zookeeper-$ZOOKEEPER_VERSION
-ENV ZOOKEEPER_HOME /zookeeper
-ENV PATH $PATH:$ZOOKEEPER_HOME/bin
+ENV ZOOKEEPER_PACKAGE zookeeper-3.4.7
 
-RUN curl \
-    http://mirrors.muzzy.it/apache/zookeeper/$ZOOKEEPER_PACKAGE/$ZOOKEEPER_PACKAGE.tar.gz \
-    | tar xzf - -C / && \
-    mv /$ZOOKEEPER_PACKAGE $ZOOKEEPER_HOME && \
-    rm -rf /$ZOOKEEPER_HOME/conf
+RUN curl -fL http://mirrors.muzzy.it/apache/zookeeper/$ZOOKEEPER_PACKAGE/$ZOOKEEPER_PACKAGE.tar.gz \
+    | tar xzf - -C /opt && \
+    mv /opt/$ZOOKEEPER_PACKAGE /opt/zookeeper
 
 VOLUME ["/data", "/logs"]
 
-WORKDIR $ZOOKEEPER_HOME
+ADD entrypoint.sh /
 
-# used to fix weave IP issue
-COPY docker-entrypoint.sh /
-
-ENTRYPOINT ["/docker-entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
 
 EXPOSE 2181 2888 3888
 
 ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/zookeeper/bin
 
-CMD ["start-foreground"]
+CMD ["zkServer.sh", "start-foreground"]

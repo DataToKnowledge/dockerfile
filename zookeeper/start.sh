@@ -3,11 +3,10 @@
 #if no parameter is passed to the script, print the usage help
 if [ "$#" -eq 0 ]; then
     cat << 'EOF'
-Usage: start INDEX|NAME
+Usage: start INDEX
 
 Example:
-$: start 1      -- Creates a node named zoo-1
-$: start node1  -- Creates a node named node1
+$: ./start 1      -- Creates a node named zoo-1
 EOF
     exit 1
 fi
@@ -15,15 +14,15 @@ fi
 #spwd holds the dirname of this script
 spwd=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-#this cycle get the last argument passed to the script
-#and save that in the $name variable, to use for naming the container
-for last; do true; done
-name=$last
-
+# the number of the istance
+id=$1
 #if $name is a number then change it in "kafka-#"
-if [[ $name =~ ^-?[0-9]+$ ]]; then
-  name="zoo-$name"
+if [[ $id == ^-?[0-9]+$ ]]; then
+  echo "error the id must be a number"
+  exit 1
 fi
+
+name="zoo-$id"
 
 baseDir="/data"
 zooDir="$baseDir/zookeeper"
@@ -43,15 +42,18 @@ else #show an error message
   echo "$baseDir not exists"
 fi
 
+echo "starting a redis istance with name $name"
 imgName="data2knowledge/zookeeper:3.4.7"
 
 docker build -t $imgName $spwd
 docker stop $name &> /dev/null
 docker rm $name &> /dev/null
-docker run --name $name --restart on-failure -dt \
+docker run --name $name --restart=on-failure -dt \
+  -e MYID=$id \
+  -e SERVERS=zoo-1,zoo-2,zoo-3 \
   -p 2181:2181 \
   -p 2888:2888 \
   -p 3888:3888 \
   -v $dataDir:/data \
-  -v $spwd/config:/zookeeper/conf \
+  -v $logsDir:/logs \
   $imgName
