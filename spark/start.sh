@@ -66,14 +66,14 @@ docker rm $name &> /dev/null
 if [ $master == true ]; then
   echo "spark.deploy.recoveryMode ZOOKEEPER" >> $confDir/spark-default.conf
   echo "spark.deploy.zookeeper.url zoo-1:2181,zoo-2:2181,zoo-3:2181" >> $confDir/spark-default.conf
-  docker run --net=weave --name $name --restart on-failure -d \
+  docker run --name $name --restart on-failure -dt \
     -v $dataDir:/tmp/data \
     -v $logsDir:/logs \
     -v $confDir:/conf \
     $imgName \
     org.apache.spark.deploy.master.Master -h $name
 else
-  docker run --net=weave --name $name --restart on-failure -d \
+  docker run --name $name --restart on-failure -dt \
     -v $dataDir:/tmp/data \
     -v $logsDir:/logs \
     -v $confDir:/conf \
