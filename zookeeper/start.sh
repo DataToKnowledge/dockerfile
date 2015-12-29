@@ -17,7 +17,7 @@ spwd=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 # the number of the istance
 id=$1
 #if $name is a number then change it in "kafka-#"
-if [[ $id =~ ^-?[0-9]+$ ]]; then
+if [[ $id == ^-?[0-9]+$ ]]; then
   echo "error the id must be a number"
   exit 1
 fi
