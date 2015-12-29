@@ -44,10 +44,11 @@ fi
 
 imgName="data2knowledge/zookeeper:3.4.7"
 
+echo "starting a redis istance with name $name"
 docker build -t $imgName $spwd
 docker stop $name &> /dev/null
 docker rm $name &> /dev/null
-docker run --name $name --restart on-failure -dt \
+docker run --name $name --restart=on-failure -dt \
   -e MYID=$id \
   -e SERVERS=zoo-1,zoo-2,zoo-3 \
   -p 2181:2181 \

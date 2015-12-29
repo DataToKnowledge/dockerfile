@@ -1,4 +1,4 @@
-FROM ubuntu:15.04
+FROM 8-jre
 
 RUN apt-get update && \
 apt-get install -y curl openjdk-7-jre-headless python
