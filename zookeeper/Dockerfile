@@ -1,7 +1,7 @@
 FROM 8-jre
 
 RUN apt-get update && \
-apt-get install -y curl openjdk-7-jre-headless python
+apt-get install -y python
 
 #zookeeper
 ENV ZOOKEEPER_PACKAGE zookeeper-3.4.7
