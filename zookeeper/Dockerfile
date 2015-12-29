@@ -26,4 +26,6 @@ ENTRYPOINT ["/docker-entrypoint.sh"]
 
 EXPOSE 2181 2888 3888
 
+ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/zookeeper/bin
+
 CMD ["start-foreground"]
