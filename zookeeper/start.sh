@@ -53,5 +53,6 @@ docker run --name $name --restart on-failure -dt \
   -p 2888:2888 \
   -p 3888:3888 \
   -v $dataDir:/data \
+  -v $logsDir:/logs \
   -v $spwd/config:/zookeeper/conf \
   $imgName
