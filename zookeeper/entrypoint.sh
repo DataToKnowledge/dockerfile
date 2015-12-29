@@ -10,8 +10,8 @@ syncLimit=5
 dataDir=/data
 dataLogDir=/logs
 clientPort=2181
-autopurge.snapRetainCount=5
-autopurge.purgeInterval=24
+# autopurge.snapRetainCount=5
+# autopurge.purgeInterval=24
 EOF
 
 # server.1=...
