@@ -60,9 +60,9 @@ docker rm $name &> /dev/null
 echo "starting kafka with name ${name}"
 
 docker run --name $name --restart=on-failure -dt \
-  -e ID=$id
-  -e NAME=$name
-  -e ZOOKEEPERS=$zookeeper
+  -e ID=$id \
+  -e NAME=$name \
+  -e ZOOKEEPERS=$zookeeper \
   -p 9092:9092 \
   -p 7203:7203 \
   -v $dataDir:/data \
