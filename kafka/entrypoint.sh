@@ -7,7 +7,7 @@
 # properties to add
 echo "broker.id=${ID}
 advertised.host.name=${NAME}
-zookeeper.connect=${ZOOKEEPERS}" >> /opt/kafka/server.properties
+zookeeper.connect=${ZOOKEEPERS}" >> /opt/kafka/config/server.properties
 
 echo " writing properties
 broker.id=${ID}
