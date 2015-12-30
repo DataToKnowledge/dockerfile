@@ -9,13 +9,5 @@ Cd to the directory where is the dockerfile.
 Create a node named `kafka-#` with
 
 ```
-$ ./start.sh #
+$ ./start.sh <id> --zookeeper zoo-1:2181,zoo-2:2181,zoo-3:2181
 ```
-
-You can either pass an explicit name
-
-```
-$ ./start.sh node_name
-```
-
-this will create a new node named `node_name`
