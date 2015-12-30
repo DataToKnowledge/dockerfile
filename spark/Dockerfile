@@ -22,7 +22,7 @@ RUN sed 's/^\(hosts:[\ ]*\)\(files\)\ \(dns\)$/\1\3 \2/' -i /etc/nsswitch.conf
 
 WORKDIR $SPARK_HOME
 
-COPY ./conf /spark/
+COPY ./conf /spark/conf
 
 EXPOSE 4040 6066 7077 8080 8081
 
