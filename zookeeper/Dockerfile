@@ -12,7 +12,7 @@ RUN curl -fL http://mirrors.muzzy.it/apache/zookeeper/$ZOOKEEPER_PACKAGE/$ZOOKEE
 
 VOLUME ["/data", "/logs"]
 
-ADD entrypoint.sh /
+COPY entrypoint.sh /
 
 ENTRYPOINT ["/entrypoint.sh"]
 
