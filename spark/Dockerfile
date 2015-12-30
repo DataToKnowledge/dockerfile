@@ -11,7 +11,6 @@ ENV SPARK_HOME /spark
 ENV PATH $PATH:$SPARK_HOME/bin
 
 RUN curl \
-    --silent \
     http://d3kbcqa49mib13.cloudfront.net/$SPARK_PACKAGE.tgz \
     | gunzip \
     | tar x -C / && \
