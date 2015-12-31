@@ -79,6 +79,7 @@ docker run --name $name --restart on-failure -dt \
   -p 9200:9200 \
   -p 9300:9300 \
   -e ES_HEAP_SIZE=3g \
+  -e NAME=$name \
   -e UNICAST_HOSTS=$unicast_hosts \
   -v $dataDir:/usr/share/elasticsearch/data \
   $imgName
