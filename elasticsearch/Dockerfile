@@ -16,8 +16,6 @@ RUN plugin install https://github.com/jlinn/elasticsearch-analysis-url/releases/
 # index attachments using tika
 # bin/plugin install mapper-attachments
 
-RUN sysctl -w vm.max_map_count=262144
-
 # the data volume is already in the base dockerfile
 VOLUME /usr/share/elasticsearch/data
 
