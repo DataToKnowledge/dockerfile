@@ -8,7 +8,7 @@ cluster.name: wheretolive
 node.name: ${NAME}
 bootstrap.mlockall: true
 
-discovery.zen.minimum_master_nodes: 3
+discovery.zen.minimum_master_nodes: 1
 discovery.zen.ping.timeout: 30s
 discovery.zen.ping.unicast.hosts: [${UNICAST_HOSTS}]
 
