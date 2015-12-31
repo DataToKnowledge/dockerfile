@@ -1,13 +1,32 @@
-FROM elasticsearch:1.6.0
+FROM elasticsearch:2.1.1
 
 MAINTAINER Datatoknowledge <info@datatoknowledge.it>
 
 # install the icu analyzer
-RUN /usr/share/elasticsearch/bin/plugin --install elasticsearch/elasticsearch-analysis-icu/2.6.0
+RUN plugin install analysis-icu
 
-# install kopf manager
-RUN  /usr/share/elasticsearch/bin/plugin --install lmenezes/elasticsearch-kopf/master
+# install gui manager
+RUN plugin install lmenezes/elasticsearch-kopf
+# RUN plugin install jettro/elasticsearch-gui
+
+
+# url analyzer https://github.com/jlinn/elasticsearch-analysis-url
+RUN plugin install https://github.com/jlinn/elasticsearch-analysis-url/releases/download/v2.1.1/elasticsearch-analysis-url-2.1.1.zip
+
+# index attachments using tika
+# bin/plugin install mapper-attachments
+
+RUN sysctl -w vm.max_map_count=262144
+
+# the data volume is already in the base dockerfile
+VOLUME /usr/share/elasticsearch/data
+
+ENV ES_HEAP_SIZE 3g
 
 EXPOSE 9200 9300
 
-VOLUME ["/usr/share/elasticsearch/logs"]
+COPY docker-entrypoint.sh /
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
+
+CMD ["elasticsearch"]
