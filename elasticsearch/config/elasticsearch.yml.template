@@ -1,4 +1,4 @@
-cluster.name: wheretolive
+/*cluster.name: wheretolive
 
 network.publish_host: _ethwe:ipv4_
 
@@ -8,4 +8,4 @@ discovery.zen.ping.timeout: 30s
 discovery.zen.ping.multicast.enable: false
 discovery.zen.ping.unicast.hosts: ["esm0", "esm1"]
 
-node.name: {esn#}
+node.name: {esn#}*/
