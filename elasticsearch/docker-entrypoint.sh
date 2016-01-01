@@ -4,17 +4,18 @@ set -e
 
 # define a custom elasticsearch.yml
 echo "
+network.host: 0.0.0.0
 cluster.name: wheretolive
 node.name: ${NAME}
 bootstrap.mlockall: true
 
-# network.publish_host: _ethwe:ipv4_
+network.publish_host: _ethwe:ipv4_
 discovery.zen.minimum_master_nodes: 1
 discovery.zen.ping.timeout: 30s
 discovery.zen.ping.unicast.hosts: [${UNICAST_HOSTS}]
 
 discovery.zen.fd.ping_interval: 6s
-discovery.zen.fd.ping_retries: 10" >> /usr/share/elasticsearch/config/elasticsearch.yml
+discovery.zen.fd.ping_retries: 10" > /usr/share/elasticsearch/config/elasticsearch.yml
 
 # Add elasticsearch as command if needed
 if [ "${1:0:1}" = '-' ]; then
