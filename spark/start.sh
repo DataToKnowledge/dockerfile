@@ -9,8 +9,8 @@ Options:
   --master             If set indicates that is a master node
 
 Example:
-$: start --master <name>: Creates a master node named spark-master-<name> [the names should be 0 or 1]
-$: start --worker <name>: Creates a worker node named spark-worker-<name>
+$: start --master <name>: Creates a master node named spark-master-<id> [the names should be 0 or 1]
+$: start --worker <name>: Creates a worker node named spark-worker-<id>
 EOF
     exit 1
 fi
