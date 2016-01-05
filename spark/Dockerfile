@@ -4,7 +4,7 @@ RUN apt-get update && \
     apt-get -y install curl
 
 #SPARK
-ENV SPARK_VERSION 1.5.2
+ENV SPARK_VERSION 1.6.0
 ENV HADOOP_VERSION 2.6
 ENV SPARK_PACKAGE spark-$SPARK_VERSION-bin-hadoop$HADOOP_VERSION
 ENV SPARK_HOME /spark
