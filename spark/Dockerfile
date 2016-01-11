@@ -10,8 +10,10 @@ ENV SPARK_PACKAGE spark-$SPARK_VERSION-bin-hadoop$HADOOP_VERSION
 ENV SPARK_HOME /spark
 ENV PATH $PATH:$SPARK_HOME/bin
 
+    # http://d3kbcqa49mib13.cloudfront.net/$SPARK_PACKAGE.tgz \
+
 RUN curl \
-    http://d3kbcqa49mib13.cloudfront.net/$SPARK_PACKAGE.tgz \
+    https://www.dropbox.com/s/ahp5utc9hxvuryi/spark-1.6.0-Hadoop-2.7.1-scala-2.11.tgz?dl=1 \
     | gunzip \
     | tar x -C / && \
     mv /$SPARK_PACKAGE $SPARK_HOME
