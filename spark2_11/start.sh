@@ -53,7 +53,7 @@ else #show an error message
   echo "$baseDir not exists"
 fi
 
-imgName="data2knowledge/spark:1.6.0"
+imgName="data2knowledge/spark_2.11:1.6.0"
 
 #build the docker file in the spwd folder
 docker build -t $imgName $spwd

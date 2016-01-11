@@ -4,17 +4,13 @@ RUN apt-get update && \
     apt-get -y install curl
 
 #SPARK
-ENV SPARK_VERSION 1.6.0
-ENV HADOOP_VERSION 2.6
-ENV SPARK_PACKAGE spark-$SPARK_VERSION-bin-hadoop$HADOOP_VERSION
+ENV SPARK_PACKAGE spark-1.6.0-Hadoop-2.7.1-scala-2.11
 ENV SPARK_HOME /spark
 ENV PATH $PATH:$SPARK_HOME/bin
 
-    # https://www.dropbox.com/s/ahp5utc9hxvuryi/spark-1.6.0-Hadoop-2.7.1-scala-2.11.tgz?dl=1 \
 RUN curl \
-    http://d3kbcqa49mib13.cloudfront.net/$SPARK_PACKAGE.tgz \
-    | gunzip \
-    | tar x -C / && \
+    https://www.dropbox.com/s/ahp5utc9hxvuryi/$SPARK_PACKAGE.tgz?dl=1 \
+    tar -xvzf && \
     mv /$SPARK_PACKAGE $SPARK_HOME
 
 # add the hostname to the container
