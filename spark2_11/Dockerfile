@@ -4,13 +4,12 @@ RUN apt-get update && \
     apt-get -y install wget
 
 #SPARK
-ENV SPARK_PACKAGE spark-1.6.0-Hadoop-2.7.1-scala-2.11
+ENV SPARK_PACKAGE spark-1.6.0-SNAPSHOT-bin-2.7.1.tgz
 ENV SPARK_HOME /spark
 ENV PATH $PATH:$SPARK_HOME/bin
 
-# https://www.dropbox.com/s/ahp5utc9hxvuryi/spark-1.6.0-Hadoop-2.7.1-scala-2.11.tgz?dl=1
 RUN wget \
-    https://www.dropbox.com/s/ahp5utc9hxvuryi/${SPARK_PACKAGE}.tgz?dl=1 -O ${SPARK_PACKAGE}.tgz  && \
+    https://www.dropbox.com/s/bhfyxuqycgtra45/${SPARK_PACKAGE}.tgz?dl=1 -O ${SPARK_PACKAGE}.tgz  && \
     tar -xvzf ${SPARK_PACKAGE}.tgz && \
     mv /$SPARK_PACKAGE $SPARK_HOME
 
