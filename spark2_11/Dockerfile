@@ -10,7 +10,7 @@ ENV PATH $PATH:$SPARK_HOME/bin
 
 RUN curl \
     https://www.dropbox.com/s/ahp5utc9hxvuryi/$SPARK_PACKAGE.tgz?dl=1 \
-    tar -xvzf && \
+    | tar -xvzf && \
     mv /$SPARK_PACKAGE $SPARK_HOME
 
 # add the hostname to the container
