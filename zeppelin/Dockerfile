@@ -13,7 +13,7 @@ RUN git clone https://github.com/felixcheung/incubator-zeppelin.git /zeppelin
 WORKDIR /zeppelin
 RUN git checkout spark16
 
-RUN mvn clean package -Pspark-1.6 -Dhadoop.version=2.6.0 -Phadoop-2.6 -Ppyspark -DskipTests
+RUN mvn clean package -Pspark-1.6 -Dhadoop.version=2.6.0 -Phadoop-2.6 -Dscala-2.11 -Ppyspark -DskipTests
 
 EXPOSE 8080
 
