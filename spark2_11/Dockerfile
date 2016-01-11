@@ -4,7 +4,7 @@ RUN apt-get update && \
     apt-get -y install wget
 
 #SPARK
-ENV SPARK_PACKAGE spark-1.6.0-SNAPSHOT-bin-2.7.1.tgz
+ENV SPARK_PACKAGE spark-1.6.0-SNAPSHOT-bin-2.7.1
 ENV SPARK_HOME /spark
 ENV PATH $PATH:$SPARK_HOME/bin
 
