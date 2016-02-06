@@ -1,3 +1,4 @@
+
 FROM elasticsearch:2.2.0
 
 MAINTAINER Datatoknowledge <info@datatoknowledge.it>
