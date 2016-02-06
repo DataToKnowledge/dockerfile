@@ -10,7 +10,7 @@ Options:
 
 Example:
 $: start -m 0     -- Creates a master node named es-master-0 [DEPRECATED]
-$: start -d 0 -hosts es-data-0,es-data-1,es-data-2    -- Creates a data node named es-data-0
+$: start -d 0 -hosts es-data-0,es-data-1,es-data-2    -- Creates a data node named es-data-0 and unicast hosts es-data-0,es-data-1,es-data-2
 EOF
     exit 1
 fi
