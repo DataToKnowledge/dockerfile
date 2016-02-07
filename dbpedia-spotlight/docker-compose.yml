@@ -1,0 +1,5 @@
+dbpedia_it:
+  image: dbpedia/spotlight-italian
+  ports:
+    - 2230:80
+  command: spotlight.sh
