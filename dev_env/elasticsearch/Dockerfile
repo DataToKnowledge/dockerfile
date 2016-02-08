@@ -16,4 +16,8 @@ ENV ES_HEAP_SIZE 1g
 
 EXPOSE 9200 9300
 
+COPY docker-entrypoint.sh /
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
+
 CMD ["elasticsearch"]
