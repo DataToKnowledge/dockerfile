@@ -22,8 +22,8 @@ kafka:
   links:
    - zookeeper:zoo-1
   environment:
-    - ID=1
-    - NAME=kafka-1
+    - ID=0
+    - NAME=192.168.99.100
     - ZOOKEEPERS=zoo-1:2181
 
 trifecta:
