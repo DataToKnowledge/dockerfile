@@ -61,7 +61,7 @@ else #show an error message
   echo "$baseDir not exists"
 fi
 
-imgName="data2knowledge/elasticsearch:2.1.1"
+imgName="data2knowledge/elasticsearch:2.2.0"
 
 #copy the template configuration file
 # cp -f $configDir/elasticsearch.yml.template $configDir/elasticsearch.yml
