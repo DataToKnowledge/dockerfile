@@ -1,4 +1,4 @@
-FROM elasticsearch:2.1.1
+FROM elasticsearch:2.2.0
 
 MAINTAINER Datatoknowledge <info@datatoknowledge.it>
 
@@ -11,7 +11,7 @@ RUN plugin install lmenezes/elasticsearch-kopf
 
 
 # url analyzer https://github.com/jlinn/elasticsearch-analysis-url
-RUN plugin install https://github.com/jlinn/elasticsearch-analysis-url/releases/download/v2.1.1/elasticsearch-analysis-url-2.1.1.zip
+# RUN plugin install https://github.com/jlinn/elasticsearch-analysis-url/releases/download/v2.1.1/elasticsearch-analysis-url-2.1.1.zip
 
 # index attachments using tika
 # bin/plugin install mapper-attachments
