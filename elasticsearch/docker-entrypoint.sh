@@ -9,7 +9,7 @@ cluster.name: wheretolive
 node.name: ${NAME}
 bootstrap.mlockall: true
 
-network.publish_host: _ethwe:ipv4_
+network.publish_host: _ethwe0:ipv4_
 discovery.zen.minimum_master_nodes: 3
 discovery.zen.ping.timeout: 30s
 discovery.zen.ping.unicast.hosts: [${UNICAST_HOSTS}]
