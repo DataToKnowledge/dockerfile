@@ -59,7 +59,7 @@ docker stop $name &> /dev/null
 docker rm $name &> /dev/null
 echo "starting kafka with name ${name}"
 
-docker run --name $name --restart=on-failure -dt \
+docker run --name $name --net weave --restart=on-failure -dt \
   -e ID=$id \
   -e NAME=$name \
   -e ZOOKEEPERS=$zookeeper \
