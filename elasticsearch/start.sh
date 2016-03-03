@@ -75,7 +75,7 @@ docker stop $name &> /dev/null
 docker rm $name &> /dev/null
 
 echo "starting ${name} ..."
-docker run --name $name --restart on-failure -dt \
+docker run --name $name --net=weave --restart on-failure -dt \
   -p 9200:9200 \
   -p 9300:9300 \
   -e ES_HEAP_SIZE=3g \
