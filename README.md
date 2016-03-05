@@ -1,34 +1,11 @@
-# No Firewall Dockerfile
-Here are `dockerfile`s for all the containers created specifically to work within the same network (azure virtual network or weave network).
+# Dockerfile
 
-## Weave network issue
-When starting a container either with `docker` or `weave` it will have two IP addresses: one assigned by Docker and one assigned through Weave. So `hostname -I` will return something like:
+Used for production. To setup a private network on our cluster we use [weave.works](https://www.weave.works/).
+Into each folder there is all that you need to start an image.
 
+## Run DBPedia-Spotlight
+
+default port 2230
+```bash
+docker run -d --name=dbpedia_it dbpedia/spotlight-italian spotlight.sh
 ```
-$ hostname -I
-172.17.42.1 192.168.0.83
-```
-
-however, `hostname -i` returns the Docker-assigned IP address:
-
-```
-$ hostname -i
-172.17.42.1
-```
-
-This breaks our containers like ZooKeeper and ElasticSearch that bound themselves on Docker-assigned IP address so they will refuse every inbound connection that use weave IP address as target.
-
-This is a known issue ( [#68](https://github.com/weaveworks/weave/issues/68), [#1079](https://github.com/weaveworks/weave/pull/1079), [#1122](https://github.com/weaveworks/weave/issues/1122) )
-
-A workaround is to empty `/etc/hosts` file with
-
-```
-$ sudo echo > /etc/hosts
-```
-
-when the container starts.
-
-We probably need a `docker-entrypoint.sh` that do this like the one in [ZooKeeper dockerfile](zookeeper/docker-entrypoint.sh)
-
-## TODO
-- ZooKeeper use the `/etc/hosts` workaround but ElasticSearch use a particular configuration. Evaluate to apply the workaround to ElastiSearch too.
