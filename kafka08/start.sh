@@ -52,7 +52,7 @@ fi
 #   | sed "s|{kfk#}|$name|g" \
 #    > $spwd/config/server.properties
 
-imgName="data2knowledge/kafka:0.9.0.1"
+imgName="data2knowledge/kafka:0.8.2.2"
 
 docker build -t $imgName $spwd
 docker stop $name &> /dev/null
