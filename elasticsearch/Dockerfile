@@ -21,7 +21,7 @@ RUN plugin install appbaseio/dejaVu
 # the data volume is already in the base dockerfile
 VOLUME /usr/share/elasticsearch/data
 
-ENV ES_HEAP_SIZE 3g
+ENV ES_HEAP_SIZE 4g
 
 EXPOSE 9200 9300
 
