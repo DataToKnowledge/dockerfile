@@ -9,6 +9,8 @@ RUN plugin install analysis-icu
 RUN plugin install lmenezes/elasticsearch-kopf
 # RUN plugin install jettro/elasticsearch-gui
 
+RUN plugin install appbaseio/dejaVu
+
 # the data volume is already in the base dockerfile
 VOLUME /usr/share/elasticsearch/data
 

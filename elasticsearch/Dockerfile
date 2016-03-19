@@ -9,6 +9,8 @@ RUN plugin install analysis-icu
 RUN plugin install lmenezes/elasticsearch-kopf
 # RUN plugin install jettro/elasticsearch-gui
 
+RUN plugin install appbaseio/dejaVu
+
 
 # url analyzer https://github.com/jlinn/elasticsearch-analysis-url
 # RUN plugin install https://github.com/jlinn/elasticsearch-analysis-url/releases/download/v2.1.1/elasticsearch-analysis-url-2.1.1.zip
