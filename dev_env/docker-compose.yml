@@ -40,3 +40,16 @@ dbpedia_it:
   ports:
     - 2230:80
   command: spotlight.sh
+
+influxdb:
+  build: ./influxdb
+  ports:
+    - "8083:8083"
+    - "8086:8086"
+
+chronograf:
+  build: ./chronograf
+  ports:
+    - "10000:10000"
+  environment:
+    - CHRONOGRAF_BIND=0.0.0.0:10000
