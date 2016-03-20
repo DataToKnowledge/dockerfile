@@ -20,7 +20,6 @@ COPY config/ $KAFKA_HOME/config/
 
 EXPOSE 9092 7203
 
-# what data is used for?
 VOLUME ["/data", "/logs"]
 
 # used to fix weave IP issue
