@@ -9,3 +9,9 @@ default port 2230
 ```bash
 docker run -d --name=dbpedia_it dbpedia/spotlight-italian spotlight.sh
 ```
+
+## Run Redis
+
+```bash
+docker run -dt --name redis -v /data/redis:/redis redis
+```

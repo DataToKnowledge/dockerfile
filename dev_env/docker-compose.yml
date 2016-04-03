@@ -1,55 +1,65 @@
-elasticsearch:
-  build: ./elasticsearch/
-  # command: elasticsearch -Des.network.host=0.0.0.0
-  ports:
-    - "9200:9200"
-    - "9300:9300"
+version: '2'
 
-zookeeper:
-  build: ./zookeeper/
-  ports:
-    - "2181:2181"
-    - "2888:2888"
-    - "3888:3888"
-  environment:
-    - MYID=1
+services:
+  elasticsearch:
+    build: ./elasticsearch/
+    # command: elasticsearch -Des.network.host=0.0.0.0
+    ports:
+      - "9200:9200"
+      - "9300:9300"
 
-kafka:
-  build: ./kafka/
-  ports:
-    - "9092:9092"
-    - "7203:7203"
-  links:
-   - zookeeper:zoo-1
-  environment:
-    - ID=0
-    - NAME=192.168.99.100
-    - ZOOKEEPERS=zoo-1:2181
+  zookeeper:
+    build: ./zookeeper/
+    ports:
+      - "2181:2181"
+      - "2888:2888"
+      - "3888:3888"
+    environment:
+      - MYID=1
 
-trifecta:
-  image: chatu/trifecta
-  ports:
-    - "8888:8888"
-  links:
-   - zookeeper:zoo-1
-  environment:
-    - ZOOKEEPERS=zoo-1
+  kafka:
+    build: ./kafka/
+    ports:
+      - "9092:9092"
+      - "7203:7203"
+    links:
+     - zookeeper:zoo-1
+    environment:
+      - ID=0
+      - NAME=192.168.99.100
+      - ZOOKEEPERS=zoo-1:2181
 
-dbpedia_it:
-  image: dbpedia/spotlight-italian
-  ports:
-    - 2230:80
-  command: spotlight.sh
+  trifecta:
+    image: chatu/trifecta
+    ports:
+      - "8888:8888"
+    links:
+     - zookeeper:zoo-1
+    environment:
+      - ZOOKEEPERS=zoo-1
+    depends_on:
+      - zookeeper
 
-influxdb:
-  build: ./influxdb
-  ports:
-    - "8083:8083"
-    - "8086:8086"
+  dbpedia_it:
+    image: dbpedia/spotlight-italian
+    ports:
+      - 2230:80
+    command: spotlight.sh
 
-chronograf:
-  build: ./chronograf
-  ports:
-    - "10000:10000"
-  environment:
-    - CHRONOGRAF_BIND=0.0.0.0:10000
+  influxdb:
+    build: ./influxdb
+    ports:
+      - "8083:8083"
+      - "8086:8086"
+
+  chronograf:
+    build: ./chronograf
+    ports:
+      - "10000:10000"
+    environment:
+      - CHRONOGRAF_BIND=0.0.0.0:10000
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
