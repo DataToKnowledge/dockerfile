@@ -26,7 +26,7 @@ services:
      - zookeeper:zoo-1
     environment:
       - ID=0
-      - NAME=192.168.99.100
+      - NAME=127.0.0.1
       - ZOOKEEPERS=zoo-1:2181
 
   trifecta:
@@ -40,24 +40,11 @@ services:
     depends_on:
       - zookeeper
 
-  dbpedia_it:
-    image: dbpedia/spotlight-italian
-    ports:
-      - 2230:80
-    command: spotlight.sh
-
-  influxdb:
-    build: ./influxdb
-    ports:
-      - "8083:8083"
-      - "8086:8086"
-
-  chronograf:
-    build: ./chronograf
-    ports:
-      - "10000:10000"
-    environment:
-      - CHRONOGRAF_BIND=0.0.0.0:10000
+  # dbpedia_it:
+  #   image: dbpedia/spotlight-italian
+  #   ports:
+  #     - 2230:80
+  #   command: spotlight.sh
 
   redis:
     image: redis:alpine
