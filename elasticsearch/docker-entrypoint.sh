@@ -10,7 +10,7 @@ node.name: ${NAME}
 bootstrap.mlockall: true
 
 network.publish_host: _ethwe:ipv4_
-discovery.zen.minimum_master_nodes: 3
+discovery.zen.minimum_master_nodes: 1
 discovery.zen.ping.timeout: 30s
 discovery.zen.ping.unicast.hosts: [${UNICAST_HOSTS}]
 
