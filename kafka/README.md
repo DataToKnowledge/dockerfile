@@ -9,5 +9,5 @@ Cd to the directory where is the dockerfile.
 Create a node named `kafka-#` with
 
 ```
-$ ./start.sh <id> --zookeeper zoo-1:2181,zoo-2:2181,zoo-3:2181
+$ ./start.sh <id> --zookeeper zoo-1.weave.local:2181,zoo-2.weave.local:2181,zoo-3.weave.local:2181
 ```
