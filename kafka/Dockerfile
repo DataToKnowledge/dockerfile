@@ -9,7 +9,7 @@ ENV KAFKA_PACKAGE kafka_$SCALA_VERSION-$KAFKA_VERSION
 
 #install kafka
 RUN curl \
-    http://mirrors.muzzy.it/apache/kafka/$KAFKA_VERSION/$KAFKA_PACKAGE.tgz \
+    http://it.apache.contactlab.it/kafka/$KAFKA_VERSION/$KAFKA_PACKAGE.tgz \
     | tar xzf - -C /opt && \
     mv /opt/$KAFKA_PACKAGE $KAFKA_HOME
 
