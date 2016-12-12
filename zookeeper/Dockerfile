@@ -4,9 +4,9 @@ RUN apt-get update && \
 apt-get install -y python
 
 #zookeeper
-ENV ZOOKEEPER_PACKAGE zookeeper-3.4.6
+ENV ZOOKEEPER_PACKAGE zookeeper-3.4.9
 
-RUN curl -fL http://mirrors.muzzy.it/apache/zookeeper/$ZOOKEEPER_PACKAGE/$ZOOKEEPER_PACKAGE.tar.gz \
+RUN curl -fL http://apache.panu.it/zookeeper/$ZOOKEEPER_PACKAGE/$ZOOKEEPER_PACKAGE.tar.gz \
     | tar xzf - -C /opt && \
     mv /opt/$ZOOKEEPER_PACKAGE /opt/zookeeper
 
